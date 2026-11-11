@@ -103,6 +103,39 @@ body.reduce-motion .main-menu button::before{animation:none!important}
   #menu .logo-img{width:88vw;height:clamp(185px,29vh,275px);margin-left:-4vw;margin-top:-3vh}
   #menu .main-menu{bottom:8%}
 }
+
+/* v0.6 — cinematic dialogue overlay: image reference-inspired layout, original RoT identity */
+#app[data-screen="dialogue"] .scene-art{filter:brightness(.72) contrast(1.09);animation:none}
+#app[data-screen="dialogue"] .character-art{display:none}
+#app[data-screen="dialogue"] .scene:before{background:linear-gradient(0deg,#05090bc4 0%,#07101847 45%,#05090b12 90%)}
+#app[data-screen="dialogue"] #panelView{padding:0;overflow:hidden;background:transparent}
+#app[data-screen="dialogue"] #panelView>.eyebrow,
+#app[data-screen="dialogue"] #panelView>h1{display:none}
+#app[data-screen="dialogue"] #panelView>.back{z-index:15;top:7%;right:5%;background:#0c1519b0}
+#app[data-screen="dialogue"] #panelView>.sheet{position:absolute;inset:0;max-width:none;min-height:0;margin:0;padding:0;background:transparent;border:0;overflow:hidden}
+.rot-dialogue{position:absolute;inset:0;pointer-events:none}
+.rot-dialogue:after{content:"";position:absolute;inset:48% 0 0;background:linear-gradient(0deg,#020609b0,transparent 90%);z-index:0;pointer-events:none}
+.rot-dialogue-portrait{position:absolute;left:5%;bottom:-15%;height:92%;max-width:42%;object-fit:contain;object-position:bottom left;opacity:.83;filter:drop-shadow(0 12px 50px #0008);z-index:1;pointer-events:none;mask-image:linear-gradient(0deg,transparent 0%,#000 20%)}
+.rot-dialogue-caption{position:absolute;left:23%;width:54%;bottom:8%;z-index:3;text-align:center;pointer-events:auto}
+.rot-dialogue-name{font-family:'Noto Serif JP',serif;font-weight:600;font-size:clamp(18px,2vw,26px);color:#e3b85d;text-shadow:0 2px 6px #000,0 0 25px #000;letter-spacing:.09em}
+.rot-dialogue-rule{height:1px;margin:10px auto 16px;max-width:810px;background:linear-gradient(90deg,transparent,#b49a5a 22%,#c5ac75 50%,#b49a5a 78%,transparent);position:relative}
+.rot-dialogue-rule:before,.rot-dialogue-rule:after{content:"◇";position:absolute;top:-10px;color:#ad915e;font-size:13px}.rot-dialogue-rule:before{left:5%}.rot-dialogue-rule:after{right:5%}
+.rot-dialogue-line{font-family:'Noto Serif JP',serif;font-size:clamp(16px,1.55vw,23px);font-weight:500;line-height:1.75;color:#f6f0e6;text-shadow:0 2px 5px #000,0 0 18px #000;min-height:70px;max-width:900px;margin:0 auto}
+.rot-dialogue-advance{position:relative;background:transparent;color:#e5d3ac;border:0;font-size:12px;letter-spacing:.18em;padding:9px 19px;margin-top:8px;opacity:.8;pointer-events:auto}
+.rot-dialogue-advance:hover{opacity:1;color:#fff}
+.rot-dialogue-choices{position:absolute;z-index:4;right:4%;top:50%;width:min(39%,470px);transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+.rot-dialogue-choice{position:relative;display:flex;gap:12px;align-items:center;padding:13px 21px;border:1px solid #c5c0ab4d;border-radius:28px;background:linear-gradient(90deg,#1a292cdd,#0d171ad9);color:#eee9db;font:500 clamp(12px,1.1vw,16px) 'Noto Serif JP',serif;text-align:left;box-shadow:0 3px 18px #0006;min-height:50px;transition:background .2s ease,border .2s ease,transform .2s ease}
+.rot-dialogue-choice:hover,.rot-dialogue-choice:focus-visible,.rot-dialogue-choice.selected{background:linear-gradient(90deg,#344744f2,#172528ef);border-color:#d7bd80;transform:translateX(-7px)}
+.rot-dialogue-choice .choice-symbol{font-size:19px;color:#d6cda9}
+.rot-dialogue-context{position:absolute;z-index:3;top:14%;left:6%;color:#bbaf92a0;font-size:10px;letter-spacing:.28em;text-transform:uppercase}
+@media(max-width:800px){
+ .rot-dialogue-portrait{left:-6%;height:74%;max-width:55%;bottom:4%;opacity:.55}
+ .rot-dialogue-choices{top:36%;right:5%;width:64%;gap:6px}
+ .rot-dialogue-choice{padding:9px 12px;min-height:40px}
+ .rot-dialogue-caption{left:5%;width:90%;bottom:7%}
+ .rot-dialogue-line{font-size:15px;min-height:65px}
+}
+@media(prefers-reduced-motion:reduce){.rot-dialogue-choice{transition:none}}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
@@ -148,12 +181,37 @@ function hud(){$('app').dataset.scene=st.scene;$('objectiveLabel').textContent=t
 function open(s){st.screen=s;$('app').dataset.screen=s;$('menu').classList.toggle('active',s==='menu');$('game').classList.toggle('active',s==='game');$('panelView').classList.toggle('active',s!=='menu'&&s!=='game');if(s!=='menu'&&s!=='game')panel();hud()}
 function btn(text,fn,klass='action'){const b=document.createElement('button');b.className=klass;b.textContent=text;b.onclick=fn;return b}
 function card(glyph,title,desc){const e=document.createElement('article');e.className='card';const g=document.createElement('div');g.className='glyph';g.textContent=glyph;const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=desc;e.append(g,h,p);return e}
+
+const dialogueLines=[
+ {speaker:{en:"Tojo Seishi",ja:"東條 誠士",zh:"東條誠士"},jp:"東條 誠士",text:{en:"There are things you have yet to see.",ja:"……お前には、まだ見えていないものがある。",zh:"……還有一些事情，是你尚未看見的。"},choices:true},
+ {speaker:{en:"Tsushima Mewa",ja:"津島 真羽",zh:"津島真羽"},jp:"津島 真羽",text:{en:"Then tell me. Why have you brought me to this shrine?",ja:"なら、教えて。なぜ私をこの神社へ連れてきたの？",zh:"那就告訴我。為什麼要帶我來這座神社？"},choices:false},
+ {speaker:{en:"Tojo Seishi",ja:"東條 誠士",zh:"東條誠士"},jp:"東條 誠士",text:{en:"The boundary between our world and the hidden realm is breaking. Listen carefully.",ja:"現世と幽世の境が崩れかけている。よく聞け。",zh:"現世與幽世之間的界線正在崩塌。仔細聽好了。"},choices:false}
+];
+let dialogueStep=0;
+function renderDialogue(root){
+ root.replaceChildren();
+ const line=dialogueLines[dialogueStep];
+ const wrap=document.createElement('div');wrap.className='rot-dialogue';
+ const context=document.createElement('div');context.className='rot-dialogue-context';context.textContent='REVENANT OF TSUSHIMA · STORY PREVIEW';
+ const portrait=document.createElement('img');portrait.className='rot-dialogue-portrait';portrait.src=dialogueStep===1?'public/mewa.webp':'public/seishi.webp';portrait.alt=line.speaker.en;
+ const caption=document.createElement('div');caption.className='rot-dialogue-caption';
+ const speaker=document.createElement('div');speaker.className='rot-dialogue-name';speaker.textContent=line.speaker[st.lang];
+ const rule=document.createElement('div');rule.className='rot-dialogue-rule';rule.setAttribute('aria-hidden','true');
+ const text=document.createElement('p');text.className='rot-dialogue-line';text.textContent=line.text[st.lang];
+ const next=btn(dialogueStep===dialogueLines.length-1?'END CONVERSATION  ◇':'CONTINUE  ◇',()=>{if(dialogueStep===dialogueLines.length-1){dialogueStep=0;open('game')}else{dialogueStep++;renderDialogue(root)}},'rot-dialogue-advance');
+ caption.append(speaker,rule,text,next);wrap.append(context,portrait,caption);
+ if(line.choices){const choices=document.createElement('nav');choices.className='rot-dialogue-choices';choices.setAttribute('aria-label','Dialogue choices');
+  const opts=st.lang==='ja'?['まだ見えていないもの？','ここで何が起きた？']:st.lang==='zh'?['尚未看見的事情？','這裏究竟發生過甚麼？']:['What have I yet to see?','What happened at this shrine?'];
+  opts.forEach((answer,i)=>{const b=btn('☷   '+answer,()=>{dialogueStep=1;renderDialogue(root)},'rot-dialogue-choice');b.onmouseenter=()=>{choices.querySelectorAll('button').forEach(c=>c.classList.remove('selected'));b.classList.add('selected')};if(i===0)b.classList.add('selected');choices.append(b)});wrap.append(choices);
+ }
+ root.append(wrap);
+}
 function panel(){const s=st.screen;const title={journal:t().journal,inventory:t().inventory,dialogue:t().dialogue,pause:t().pause,settings:t().settings,chapters:t().chapters,credits:t().credits}[s]||s;$('screenLabel').textContent='REVENANT OF TSUSHIMA / '+s.toUpperCase();$('screenTitle').textContent=title;$('back').textContent='ESC · '+t().back;const root=$('panelContent');root.replaceChildren();$('panelView').dataset.panel=s;
 if(s==='journal'){const tabs=['Records','Evidence','Folklore','Characters','Locations','Progress'];const nav=document.createElement('div');tabs.forEach(x=>nav.append(btn(x,()=>{st.tab=x;panel()},'tab'+(x===st.tab?' active':''))));root.append(nav);const grid=document.createElement('div');grid.className='cards';grid.style.marginTop='20px';const data=({Records:[['記','Missing travelers','Unresolved stories surrounding the shrine.'],['鈴','The Drowned Bell','A bell heard without a visible source.'],['社','Shrine Register','Records waiting to be examined.']],Evidence:[['守','Omamori','An old protective charm.'],['霊','Spirit Trace','A pale remnant of a wandering spirit.'],['文','Letter','A weathered letter.']],Folklore:[['界','Kakuriyo','The unseen realm.'],['鳥','Torii','A passage into sacred space.'],['祭','Ritual','A tradition whose meaning is uncertain.']]})[st.tab]||[['人','Tsushima Mewa','Playable protagonist.'],['人','Tojo Seishi','A figure connected to the shrine.'],['地','The Shrine','A place requiring further investigation.']];data.forEach(([g,h,d])=>grid.append(card(g,h,d)));root.append(grid)}
 else if(s==='inventory'){const layout=document.createElement('div');layout.className='columns';const list=document.createElement('div'),detail=document.createElement('div');const items=[['守','Omamori','Protective charm'],['贈','Souvenir','An item carried into the shrine'],['棒','Kanabo','A heavy ritual implement']];items.forEach(([g,n,d],i)=>list.append(btn(g+'　'+n,()=>{detail.replaceChildren(card(g,n,d),btn('Inspect',()=>alert(n+' · '+d)))},'list-btn')));detail.append(card(...items[0]));layout.append(list,detail);root.append(layout)}
 else if(s==='pause'){['Resume','Journal','Inventory','Settings','Main Menu'].forEach((x,i)=>root.append(btn(x,()=>open(['game','journal','inventory','settings','menu'][i]),'list-btn')))}
 else if(s==='settings'){const grid=document.createElement('div');grid.className='cards';grid.append(card('言','Language','Choose the prototype interface language'),card('眼','Accessibility','Reduced motion and safe area are available in SIM mode'),card('音','Audio','No licensed game soundtrack is bundled'));root.append(grid);const nav=document.createElement('div');['en','ja','zh'].forEach(l=>nav.append(btn({en:'English',ja:'日本語',zh:'繁體中文'}[l],()=>{st.lang=l;drawMenu();panel();hud()})));root.append(nav)}
-else if(s==='dialogue'){const portrait=document.createElement('img');portrait.className='character-portrait';portrait.src='public/seishi.webp';portrait.alt='Tojo Seishi official character concept';root.append(portrait,card('誠','東條誠士 / Tojo Seishi','「……お前には、まだ見えていないものがある。」'));root.append(btn('Continue',()=>open('game')))}
+else if(s==='dialogue'){renderDialogue(root)}
 else if(s==='chapters'){root.append(card('壱','Prologue','The shrine · UI simulation available'));root.append(btn('Start Prologue',()=>open('game')))}
 else if(s==='credits'){root.append(card('曙','Aurora Studio','A standalone UI interaction concept for Revenant of Tsushima. Not a released game build.'))}
 }
