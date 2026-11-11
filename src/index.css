@@ -2112,3 +2112,17 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Internal simulator overlay: intentionally separated from player-facing UI */
+.rot-dev-root{position:absolute;inset:0;pointer-events:none;z-index:200;font-family:"Barlow Condensed",sans-serif}
+.rot-dev-tab{pointer-events:auto;position:absolute;right:0;top:50%;transform:translateY(-50%);background:#0a1718ed;border:1px solid #b09c7666;border-right:0;color:#e8dfcc;padding:16px 8px;writing-mode:vertical-rl;letter-spacing:.2em;font-size:12px;box-shadow:-6px 0 28px #0008}
+.rot-dev-tab span{font-size:9px;color:#b7a17f;margin-top:8px}
+.rot-dev-tab:hover{background:#223130}
+.rot-dev-panel{pointer-events:auto;position:absolute;right:0;top:0;bottom:0;width:min(350px,90vw);overflow:auto;background:#0b1416f5;border-left:1px solid #a48d6b88;box-shadow:-25px 0 90px #000b;color:#e8dfcc;padding:25px 25px 35px;backdrop-filter:blur(16px)}
+.rot-dev-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.rot-dev-head span{font-size:9px;letter-spacing:.22em;color:#bda67f}.rot-dev-head h2{font-size:26px;font-weight:500;margin:8px 0 0}.rot-dev-head em{font-style:normal;color:#bc9d75;font-size:12px}.rot-dev-head button{font-size:25px;background:transparent;border:0;padding:0 4px}.rot-dev-description{font-size:13px;line-height:1.5;color:#aaa99c;margin:12px 0 25px}
+.rot-dev-panel label:not(.rot-dev-check){display:block;letter-spacing:.16em;font-size:11px;color:#c3b59d;margin:23px 0 9px}.rot-dev-panel output{float:right;color:#e8dfcc}.rot-dev-panel select{width:100%;padding:10px;background:#1c2929;border:1px solid #82745f;color:#e8dfcc;border-radius:0}.rot-dev-panel input[type=range]{display:block;width:100%;accent-color:#bda27b;cursor:pointer}
+.rot-dev-row{display:flex;gap:7px;margin:12px 0}.rot-dev-panel button{cursor:pointer}.rot-dev-row button,.rot-dev-screens button,.rot-dev-foot button{background:#1c2a2a;border:1px solid #867c6a77;color:#e9e0d0;padding:9px 12px;letter-spacing:.04em}.rot-dev-row button:hover,.rot-dev-screens button:hover,.rot-dev-foot button:hover,.rot-dev-screens .active{border-color:#c7a779;color:#e8c89d}.rot-dev-check{display:flex;align-items:center;gap:10px;margin:14px 0;color:#e1d9cb;font-size:13px}.rot-dev-check input{accent-color:#bfa47b;width:16px;height:16px}.rot-dev-screens{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.rot-dev-screens button{text-align:left;text-transform:capitalize}.rot-dev-foot{display:flex;align-items:center;justify-content:space-between;gap:6px;border-top:1px solid #b4a17e44;margin-top:22px;padding-top:18px}.rot-dev-foot span{font-size:11px;color:#a39e90}
+.sim-safe-area{position:absolute;z-index:100;pointer-events:none;inset:5%;border:1px dashed #dbb86f99;box-shadow:0 0 0 999px #11111110}.sim-safe-area:before{content:"5% SAFE AREA";position:absolute;top:0;left:6px;color:#f1d39b;font:10px sans-serif;letter-spacing:.1em}
+.sim-invisible{visibility:hidden!important}.sim-reduced *, .sim-reduced *:before,.sim-reduced *:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+@media(prefers-reduced-motion:reduce){.app-shell *, .app-shell *:before,.app-shell *:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
