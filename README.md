@@ -129,3 +129,7 @@ This is an intentional UX timing demonstration, **not genuine asset-loading prog
 ## v1.3.1: Separate startup splash and gameplay loading
 
 Initial page launch shows the original **4.2-second animated logo splash** (official logo and gently breathing Tomoe crest), without the 25-second progress bar. It automatically enters the Main Menu. The **25-second rotating Tomoe loading screen** with simulated progress and Loading BGM is shown only when selecting **New Game** or **Continue**. Menu BGM begins once the menu is entered, subject to browser autoplay policies. The loading progress is simulated, not actual UE5 asset loading.
+
+## v1.4 Settings localization
+
+All **seven settings categories** and **41 setting labels/descriptions** now follow the active interface language: English, 日本語, or 繁體中文. Option display names are localized while the underlying stored values remain stable. Switching language in Settings or via the top navigation redraws the settings screen immediately. Restoring defaults preserves the selected interface language. This updates the standalone `simulator.html` only; the React/Figma version is a separate implementation.
