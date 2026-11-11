@@ -119,3 +119,9 @@ Seven settings groups are available: **Audio, Display, Graphics, Gameplay, Contr
 **Important:** Graphics settings such as Lumen, shadows, textures, FPS, camera FOV, autosave and gamepad vibration are UI/UX simulation parameters for future UE5 UMG implementation; they do not alter a static browser screenshot or modify the Unreal project. Sound effects and voice channel volumes are prepared as UI simulation settings; no SFX or dialogue recordings are attached yet.
 
 The existing approved main-menu character layout and F3 visual editor remain available.
+
+## v1.3: 25-second Tomoe loading screen
+
+The HTML5 Simulator now displays a **25-second simulated loading screen** both on first launch and when choosing New Game / Continue. The official `public/tomoe.webp` crest rotates continuously in the center with a 0–100% time-based progress indicator, logo, atmospheric shrine background and uploaded Loading BGM. At 25 seconds, the splash transitions automatically to the main menu or gameplay and menu music begins where appropriate.
+
+This is an intentional UX timing demonstration, **not genuine asset-loading progress**. Clicking or pressing Enter while loading can unlock audio playback under browser autoplay policies, but does not skip the 25-second sequence. Reduced-motion preference slows the spinner. The loading delay is defined by `LOAD_DURATION=25000` in `simulator.html`.
