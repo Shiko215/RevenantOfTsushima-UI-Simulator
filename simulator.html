@@ -651,7 +651,7 @@ window.addEventListener('resize',refreshLayout);
 window.addEventListener('keydown',e=>{if(e.key==='F3'){e.preventDefault();toggleLayout()}},true);
 refreshLayout();
 
-$('musicToggle').onclick=()=>{if(!audioActivated){enableAudio();playMusic('menu')}else{gameSettings.muted=!gameSettings.muted;persistGameSettings();if(gameSettings.muted)stopMusic();else playMusic('menu');syncMusicButton()}};
+$('musicToggle').onclick=()=>{if(!activeSoundtrack){gameSettings.muted=false;gameSettings.menuMusic=true;enableAudio();playMusic('menu')}else{gameSettings.muted=true;stopMusic()}persistGameSettings();syncMusicButton()};
 window.addEventListener('pointerdown',enableAudio,{once:true});
 applyGameSettings();syncMusicButton();drawMenu();open('menu');setTimeout(dismissIntro,4200);
 })();
