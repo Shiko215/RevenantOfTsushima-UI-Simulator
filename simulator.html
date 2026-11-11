@@ -29,14 +29,14 @@ body.reduce-motion *,body.reduce-motion *:before,body.reduce-motion *:after{anim
 .scene{background:#0c1018}
 .scene .shrine{display:none}
 .scene:before{background:linear-gradient(90deg,#080b12e8 0%,#090c11a3 36%,#0b101122 70%,#02060bc0 100%),linear-gradient(0deg,#06080bc0,transparent 60%)}
-.scene-art{position:absolute;inset:0;background:url("rot-shrine.webp") center / cover no-repeat;transition:background-image .35s ease,filter .35s ease;filter:brightness(.8) contrast(1.07);animation:scene-breathe 13s ease-in-out infinite alternate}
-#app[data-scene="washitsu"] .scene-art,#app[data-scene="honden"] .scene-art,#app[data-scene="altar"] .scene-art{background-image:url("rot-town.webp")}
+.scene-art{position:absolute;inset:0;background:url("public/rot-shrine.webp") center / cover no-repeat;transition:background-image .35s ease,filter .35s ease;filter:brightness(.8) contrast(1.07);animation:scene-breathe 13s ease-in-out infinite alternate}
+#app[data-scene="washitsu"] .scene-art,#app[data-scene="honden"] .scene-art,#app[data-scene="altar"] .scene-art{background-image:url("public/rot-town.webp")}
 @keyframes scene-breathe{to{transform:scale(1.034);filter:brightness(.92) contrast(1.06)}}
 .scene .moon{display:none}
 .lantern-glow{position:absolute;width:18%;height:24%;border-radius:50%;background:radial-gradient(ellipse,#ffd99245 0%,#edb85616 30%,transparent 68%);filter:blur(21px);pointer-events:none;z-index:2;animation:lamp-breathe 3.6s ease-in-out infinite alternate}
 .lantern-glow.one{left:46%;top:53%}.lantern-glow.two{left:61%;top:49%;animation-delay:-1.7s}.lantern-glow.three{left:17%;top:41%;animation-delay:-.9s}
 @keyframes lamp-breathe{0%{opacity:.32;transform:scale(.83)}48%{opacity:.85}100%{opacity:.45;transform:scale(1.2)}}
-.character-art{position:absolute;bottom:-5%;right:0;height:92%;width:37%;background:url("mewa.webp") bottom right / contain no-repeat;z-index:2;opacity:.86;filter:drop-shadow(0 12px 35px #06080dbb);mask-image:linear-gradient(90deg,transparent,#000 20%);pointer-events:none}
+.character-art{position:absolute;bottom:-5%;right:0;height:92%;width:37%;background:url("public/mewa.webp") bottom right / contain no-repeat;z-index:2;opacity:.86;filter:drop-shadow(0 12px 35px #06080dbb);mask-image:linear-gradient(90deg,transparent,#000 20%);pointer-events:none}
 #app[data-screen="game"] .character-art{display:none}
 .logo-img{display:block;max-height:clamp(145px,24vh,260px);width:min(440px,51vw);max-width:100%;object-fit:contain;object-position:left center;filter:drop-shadow(0 6px 21px #080508a6);animation:logo-breathe 5s ease-in-out infinite alternate}
 @keyframes logo-breathe{to{filter:drop-shadow(0 0 17px #9d2e3188) drop-shadow(0 7px 22px #050305c9)}}
@@ -61,7 +61,7 @@ body.reduce-motion *,body.reduce-motion *:before,body.reduce-motion *:after{anim
 /* Menu spirit-orb selector: the official three-tomoe symbol follows focus */
 .main-menu{left:9%;gap:7px}
 .main-menu button{position:relative;min-height:41px;padding:10px 18px 10px 42px;transform:none!important;transition:color .25s ease,text-shadow .25s ease}
-.main-menu button::before{content:""!important;display:block!important;position:absolute;left:0;top:50%;width:27px!important;height:27px!important;margin:0!important;vertical-align:initial!important;background:url("tomoe.webp") center/contain no-repeat!important;opacity:0;filter:drop-shadow(0 0 2px #b6f1e066);transform:translateY(-50%) scale(.7);transition:opacity .24s ease,transform .3s ease,filter .3s ease}
+.main-menu button::before{content:""!important;display:block!important;position:absolute;left:0;top:50%;width:27px!important;height:27px!important;margin:0!important;vertical-align:initial!important;background:url("public/tomoe.webp") center/contain no-repeat!important;opacity:0;filter:drop-shadow(0 0 2px #b6f1e066);transform:translateY(-50%) scale(.7);transition:opacity .24s ease,transform .3s ease,filter .3s ease}
 .main-menu button:hover::before,.main-menu button:focus-visible::before,.main-menu button.selected::before{opacity:.95;transform:translateY(-50%) scale(1);animation:spirit-cursor-breathe 2.5s ease-in-out infinite alternate}
 .main-menu button:hover,.main-menu button:focus-visible,.main-menu button.selected{color:#fff5de;text-shadow:0 0 13px #c8ab7661}
 @keyframes spirit-cursor-breathe{0%{opacity:.55;filter:drop-shadow(0 0 2px #bad4cd66)}100%{opacity:1;filter:drop-shadow(0 0 11px #a7e2ce9a)}}
@@ -71,7 +71,7 @@ body.reduce-motion .main-menu button::before{animation:none!important}
 
 /* v0.4: use the actual UE5 washitsu screenshot for gameplay */
 #app[data-screen="game"][data-scene="washitsu"] .scene-art{
-  background-image:url("gameplay-washitsu.webp"),url("rot-town.webp");
+  background-image:url("public/gameplay-washitsu.webp"),url("public/rot-town.webp");
   background-position:center center;
   background-size:cover;
   animation:none;
@@ -115,13 +115,13 @@ body.reduce-motion .main-menu button::before{animation:none!important}
 <g transform="translate(1260 545)"><path d="M-35 20Q0-20 35 20L61 270H-66Z" fill="#101619"/><circle cx="0" cy="0" r="25" fill="#141a1c"/><path d="M-31 37Q5 67 31 37L47 200H-48Z" fill="#33393a"/><path d="M-22 20Q0 46 20 20" fill="none" stroke="#a2a39588" stroke-width="3"/></g></svg>
 <div class="scene-art"></div><div class="lantern-glow one"></div><div class="lantern-glow two"></div><div class="lantern-glow three"></div><div class="fog"></div><div class="grain"></div></div>
 <div class="character-art" aria-hidden="true"></div>
-<img src="tomoe.webp" class="family-corner" alt="" aria-hidden="true">
+<img src="public/tomoe.webp" class="family-corner" alt="" aria-hidden="true">
 <header><span class="eyebrow">AURORA STUDIO · UI PROTOTYPE</span><div class="top-actions"><button id="lang">EN / 日本語 / 繁中</button></div></header>
-<section id="menu" class="view active"><img class="logo-img" src="rot-logo.webp" alt="津島・魂鬼 Revenant of Tsushima"><div class="rule"></div><div class="eyebrow" id="tagline">BETWEEN THE LIVING AND THE LOST</div><nav class="main-menu" id="menuButtons" aria-label="Game menu"></nav></section>
+<section id="menu" class="view active"><img class="logo-img" src="public/rot-logo.webp" alt="津島・魂鬼 Revenant of Tsushima"><div class="rule"></div><div class="eyebrow" id="tagline">BETWEEN THE LIVING AND THE LOST</div><nav class="main-menu" id="menuButtons" aria-label="Game menu"></nav></section>
 <section id="game" class="hud"><div class="objective" id="objective"><span class="eyebrow" id="objectiveLabel">CURRENT OBJECTIVE</span><strong id="objectiveText"></strong><small id="progress"></small></div><button class="interaction" id="interact">[ E ] INVESTIGATE</button><div class="ether" id="ether"><div class="trace">霊</div><div class="ether-caption">ETHER SIGHT / 霊視</div></div><div class="hud-nav" id="hudHelp">J Journal · I Inventory · Q Ether Sight · D Dialogue · Esc Pause</div></section>
 <section class="view" id="panelView"><button class="back" id="back">ESC · BACK</button><span class="eyebrow" id="screenLabel">INVESTIGATION</span><h1 id="screenTitle">調査記録</h1><div class="sheet" id="panelContent"></div></section>
 <div class="foot">© AURORA STUDIO · HTML5 SIMULATOR</div>
-<div class="intro" id="intro" role="status" aria-label="Revenant of Tsushima opening"><img class="family-mark" src="tomoe.webp" alt=""><img src="rot-logo.webp" alt="津島・魂鬼"><small>THE VEIL REMEMBERS</small><span class="skip">CLICK OR PRESS ENTER TO CONTINUE</span></div>
+<div class="intro" id="intro" role="status" aria-label="Revenant of Tsushima opening"><img class="family-mark" src="public/tomoe.webp" alt=""><img src="public/rot-logo.webp" alt="津島・魂鬼"><small>THE VEIL REMEMBERS</small><span class="skip">CLICK OR PRESS ENTER TO CONTINUE</span></div>
 <div id="safe" class="safe hidden" aria-hidden="true"></div><button class="sim-button" id="simToggle">SIMULATOR · F2</button>
 <aside id="sim" class="sim-panel" aria-label="Developer simulator panel"><button class="close" id="simClose" aria-label="Close">×</button><div class="eyebrow">INTERNAL UX TEST HARNESS</div><h2>UI Simulator v0.2</h2><p class="debug-only">Developer controls, separate from the player-facing game UI.</p>
 <label for="scenePick">TEST SCENE</label><select id="scenePick"><option value="washitsu">Washitsu / 和室</option><option value="graveyard">Graveyard / 墓地</option><option value="torii">Torii Path / 鳥居</option><option value="honden">Main Sanctuary / 本殿</option><option value="altar">Altar / 祭壇</option></select>
@@ -153,7 +153,7 @@ if(s==='journal'){const tabs=['Records','Evidence','Folklore','Characters','Loca
 else if(s==='inventory'){const layout=document.createElement('div');layout.className='columns';const list=document.createElement('div'),detail=document.createElement('div');const items=[['守','Omamori','Protective charm'],['贈','Souvenir','An item carried into the shrine'],['棒','Kanabo','A heavy ritual implement']];items.forEach(([g,n,d],i)=>list.append(btn(g+'　'+n,()=>{detail.replaceChildren(card(g,n,d),btn('Inspect',()=>alert(n+' · '+d)))},'list-btn')));detail.append(card(...items[0]));layout.append(list,detail);root.append(layout)}
 else if(s==='pause'){['Resume','Journal','Inventory','Settings','Main Menu'].forEach((x,i)=>root.append(btn(x,()=>open(['game','journal','inventory','settings','menu'][i]),'list-btn')))}
 else if(s==='settings'){const grid=document.createElement('div');grid.className='cards';grid.append(card('言','Language','Choose the prototype interface language'),card('眼','Accessibility','Reduced motion and safe area are available in SIM mode'),card('音','Audio','No licensed game soundtrack is bundled'));root.append(grid);const nav=document.createElement('div');['en','ja','zh'].forEach(l=>nav.append(btn({en:'English',ja:'日本語',zh:'繁體中文'}[l],()=>{st.lang=l;drawMenu();panel();hud()})));root.append(nav)}
-else if(s==='dialogue'){const portrait=document.createElement('img');portrait.className='character-portrait';portrait.src='seishi.webp';portrait.alt='Tojo Seishi official character concept';root.append(portrait,card('誠','東條誠士 / Tojo Seishi','「……お前には、まだ見えていないものがある。」'));root.append(btn('Continue',()=>open('game')))}
+else if(s==='dialogue'){const portrait=document.createElement('img');portrait.className='character-portrait';portrait.src='public/seishi.webp';portrait.alt='Tojo Seishi official character concept';root.append(portrait,card('誠','東條誠士 / Tojo Seishi','「……お前には、まだ見えていないものがある。」'));root.append(btn('Continue',()=>open('game')))}
 else if(s==='chapters'){root.append(card('壱','Prologue','The shrine · UI simulation available'));root.append(btn('Start Prologue',()=>open('game')))}
 else if(s==='credits'){root.append(card('曙','Aurora Studio','A standalone UI interaction concept for Revenant of Tsushima. Not a released game build.'))}
 }
