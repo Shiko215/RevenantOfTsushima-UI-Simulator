@@ -159,6 +159,43 @@ body.reduce-motion .main-menu button::before{animation:none!important}
  #app[data-screen="menu"] .character-art{right:-13%;width:53%;height:63%}
  #app[data-screen="dialogue"] .rot-dialogue-portrait{left:-5%;width:60%;height:65%;opacity:.6}
 }
+
+/* v0.8 — art-directed overlapping HALF-BODY duo, based on supplied key-art reference */
+.title-duo{
+ position:absolute;z-index:3;left:46%;right:0;top:12%;bottom:0;
+ overflow:hidden;pointer-events:none;
+ -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 100%);
+ mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 100%);
+}
+.title-duo img{
+ position:absolute;width:auto;max-width:none;object-fit:contain;
+ object-position:top center;pointer-events:none;user-select:none;
+}
+.title-duo .duo-seishi{
+ z-index:1;right:-1%;top:1%;height:153%;
+ opacity:.83;filter:brightness(.70) saturate(.78) drop-shadow(-10px 14px 30px #000c);
+}
+.title-duo .duo-mewa{
+ z-index:2;left:-7%;top:11%;height:153%;
+ opacity:.98;filter:brightness(.93) saturate(.87) drop-shadow(8px 8px 28px #000c);
+}
+#app:not([data-screen="menu"]) .title-duo{display:none}
+#app[data-screen="menu"] #menu{z-index:5}
+#app[data-screen="menu"] #menu .logo-img{width:min(740px,54vw);height:clamp(230px,38vh,380px);margin-left:-2.1vw}
+#app[data-screen="menu"] #menu .main-menu{bottom:6%}
+@media(max-width:1000px){
+ .title-duo{left:42%;top:18%}
+ .title-duo .duo-seishi{right:-14%;height:137%}
+ .title-duo .duo-mewa{left:-11%;top:15%;height:140%}
+ #app[data-screen="menu"] #menu .logo-img{width:min(620px,60vw)}
+}
+@media(max-width:650px){
+ .title-duo{left:33%;top:38%;opacity:.67}
+ .title-duo .duo-seishi{right:-38%;height:110%}
+ .title-duo .duo-mewa{left:-12%;top:15%;height:115%}
+ #app[data-screen="menu"] #menu .logo-img{width:85vw;height:27vh}
+ #app[data-screen="menu"] #menu .main-menu{bottom:5%}
+}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
@@ -170,8 +207,7 @@ body.reduce-motion .main-menu button::before{animation:none!important}
 <g transform="translate(1325 530)"><path d="M-24 55H24V210H-24ZM-44 35H44L27 66H-27ZM-22-11H22L44 37H-44ZM-52-15Q0-48 52-15Z" fill="#28302d"/><path d="M-13 2H13V34H-13Z" fill="#b68852"/></g>
 <g transform="translate(1260 545)"><path d="M-35 20Q0-20 35 20L61 270H-66Z" fill="#101619"/><circle cx="0" cy="0" r="25" fill="#141a1c"/><path d="M-31 37Q5 67 31 37L47 200H-48Z" fill="#33393a"/><path d="M-22 20Q0 46 20 20" fill="none" stroke="#a2a39588" stroke-width="3"/></g></svg>
 <div class="scene-art"></div><div class="lantern-glow one"></div><div class="lantern-glow two"></div><div class="lantern-glow three"></div><div class="fog"></div><div class="grain"></div></div>
-<div class="cover-seishi" aria-hidden="true"></div>
-<div class="character-art" aria-hidden="true"></div>
+<div class="title-duo" aria-hidden="true"><img class="duo-seishi" src="public/seishi.webp" alt=""><img class="duo-mewa" src="public/mewa.webp" alt=""></div>
 <img src="public/tomoe.webp" class="family-corner" alt="" aria-hidden="true">
 <header><span class="eyebrow">AURORA STUDIO · UI PROTOTYPE</span><div class="top-actions"><button id="lang">EN / 日本語 / 繁中</button></div></header>
 <section id="menu" class="view active"><img class="logo-img" src="public/rot-logo.webp" alt="津島・魂鬼 Revenant of Tsushima"><div class="rule"></div><div class="eyebrow" id="tagline">BETWEEN THE LIVING AND THE LOST</div><nav class="main-menu" id="menuButtons" aria-label="Game menu"></nav></section>
