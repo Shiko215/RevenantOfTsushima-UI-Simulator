@@ -97,3 +97,10 @@ The first screen is a **breathing-light opening**: crest and official logo gentl
 ****Assets uploaded and linked:** All six WebP files are present in the repository root. Commit `025557b` updates the HTML file to use the correct relative image paths.
 
 Once the binary assets are committed, the standalone file can be previewed via GitHub Pages. The existing React/Figma UI still uses its own art references; this change targets the **standalone HTML5 simulator**.
+
+
+## v0.4 Gameplay preview asset paths (verified)
+
+The official WebP files are now in the repository's `public/` folder. The standalone `simulator.html` has been updated to reference `public/mewa.webp`, `public/seishi.webp`, `public/rot-logo.webp`, `public/tomoe.webp`, `public/rot-shrine.webp`, `public/rot-town.webp` and `public/gameplay-washitsu.webp`. On the **Washitsu** gameplay test scene, the simulator uses the uploaded UE5 candlelit interior screenshot instead of the placeholder streetscape.
+
+Do not move these files back to the root directory merely for the standalone page. The GitHub Pages path and the Vite project's asset handling are different; keep relative paths correct for each deployment route. The standalone HTML has been updated for the current repository layout.
