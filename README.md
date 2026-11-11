@@ -133,3 +133,9 @@ Initial page launch shows the original **4.2-second animated logo splash** (offi
 ## v1.4 Settings localization
 
 All **seven settings categories** and **41 setting labels/descriptions** now follow the active interface language: English, 日本語, or 繁體中文. Option display names are localized while the underlying stored values remain stable. Switching language in Settings or via the top navigation redraws the settings screen immediately. Restoring defaults preserves the selected interface language. This updates the standalone `simulator.html` only; the React/Figma version is a separate implementation.
+
+## Nintendo Switch button prompt theme
+
+In the standalone HTML5 simulator, open **Settings → Controls → Button Prompt Style**, then select **Nintendo Switch**. The HUD and Back/Interact prompts update immediately, with Nintendo-style **A Confirm / B Back / Y Interact / X Inventory / L Ether Sight / + Pause** labels. A live prompt preview appears in Controls. Other available styles are Keyboard & Mouse, Xbox Controller, and PlayStation Controller. The selection persists in browser settings and works with the English, Japanese, and Traditional Chinese UI.
+
+This changes **visual button prompts only**. It does not pair a Nintendo Switch controller, remap physical buttons, or make the HTML simulator a Nintendo Switch game build.
