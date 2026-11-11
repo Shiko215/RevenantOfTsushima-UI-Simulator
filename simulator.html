@@ -454,6 +454,41 @@ const settingGroups=[
  {id:'accessibility',label:'Accessibility',symbol:'眼',intro:'Motion, contrast and subtitles for comfortable play.',fields:['subtitles','subtitleSize','reducedMotion','highContrast','safeZone','textSize']},
  {id:'language',label:'Language',symbol:'言',intro:'Interface and future dialogue localization.',fields:['language','dialogueLanguage']}
 ];
+
+/* Settings i18n: keys and stored option values stay language-neutral. */
+const settingsI18n={
+ zh:{
+  groups:{audio:['音訊','背景音樂與音量混音'],display:['顯示','畫面模式、亮度與介面大小'],graphics:['圖像','畫面品質與 Unreal Engine 5 設定預覽'],gameplay:['遊戲玩法','探索、鏡頭與調查操作'],controls:['操作控制','滑鼠、鍵盤與控制器設定'],accessibility:['無障礙','字幕、動態效果與可讀性'],language:['語言','介面與對話語言偏好']},
+  fields:{
+   master:['總音量','控制所有遊戲聲音的整體音量。'],music:['音樂音量','調整開場與主選單背景音樂。'],sfx:['音效音量','遊戲音效頻道的模擬設定。'],voice:['語音音量','對話語音頻道的模擬設定。'],ambience:['環境音量','場景環境聲音的模擬設定。'],muted:['全部靜音','停止所有正在播放的音樂。'],menuMusic:['啟用主選單音樂','播放已上傳的主選單配樂。'],audioPreset:['音訊輸出','遊戲音效混音模式預設。'],
+   subtitles:['顯示字幕','在對話期間顯示字幕。'],subtitleSize:['字幕大小','調整字幕文字大小。'],resolution:['解析度','目標解析度預覽，不會真正改變瀏覽器輸出。'],displayMode:['顯示模式','切換視窗或瀏覽器全螢幕。'],brightness:['亮度','調整模擬器場景的亮度。'],contrast:['對比度','調整場景對比度。'],hudScale:['HUD 比例','調整遊戲提示介面的大小。'],
+   fps:['影格率上限','供未來 UE5 整合的模擬選項。'],vsync:['垂直同步','供 UE5 遊戲使用的偏好設定。'],quality:['整體畫質','未來 UE5 畫質預設。'],shadows:['陰影品質','此設定不會改變靜態截圖。'],textures:['材質品質','供正式遊戲使用的圖像設定。'],lumen:['Lumen 全域光照','HTML 預覽無法實際運行 Lumen。'],motionBlur:['動態模糊','可減少模擬畫面中的動態效果。'],filmGrain:['膠片顆粒','電影式畫面紋理偏好。'],
+   fov:['視野角度（FOV）','供未來第一人稱鏡頭使用。'],headBob:['行走鏡頭晃動','第一人稱移動效果偏好。'],cameraShake:['鏡頭震動','恐怖場景鏡頭效果偏好。'],interactionHints:['互動提示','顯示或隱藏遊戲互動提示。'],objectives:['任務追蹤','顯示目前任務目標。'],tutorials:['教學提示','教學訊息的顯示偏好。'],autosave:['自動儲存頻率','模擬設定，並非真正的存檔系統。'],
+   language:['介面語言','立即切換模擬器的介面語言。'],dialogueLanguage:['對話語音語言','未來配音支援的偏好設定。'],invertY:['反轉垂直視角','未來的鏡頭輸入設定。'],sensitivity:['滑鼠靈敏度','第一人稱鏡頭操作偏好。'],controller:['啟用控制器','供 UE5 Common UI 使用的手掣設定。'],vibration:['控制器震動','未來手掣震動強度。'],keyHints:['按鍵提示樣式','選擇鍵盤或手掣按鍵圖示。'],reducedMotion:['減少動態效果','停用介面、背景與呼吸動畫。'],highContrast:['高對比介面','增加文字與選單對比度。'],safeZone:['顯示 5% 安全區','預覽介面邊界及螢幕留白。'],textSize:['介面文字大小','方便閱讀的文字大小偏好。']
+  },
+  options:{Headphones:'耳機','Stereo Speakers':'立體聲喇叭','Home Theatre':'家庭影院','Night Mode':'夜間模式',Small:'小',Medium:'中',Large:'大','Extra Large':'特大',Windowed:'視窗模式',Fullscreen:'全螢幕',Unlimited:'無上限',Low:'低',High:'高',Epic:'極高',Cinematic:'電影級',Off:'關閉','Every 5 Minutes':'每 5 分鐘','Every 10 Minutes':'每 10 分鐘',Checkpoints:'檢查點',Normal:'一般','Keyboard & Mouse':'鍵盤及滑鼠','Xbox Controller':'Xbox 控制器','PlayStation Controller':'PlayStation 控制器',Japanese:'日語',English:'英文'},
+  reset:'恢復預設值',saved:'已儲存於本機 · 尚未接入 UE5 遊戲',nav:'設定分類'
+ },
+ ja:{
+  groups:{audio:['サウンド','BGM と音量バランスの調整'],display:['ディスプレイ','表示モード・明るさ・UI サイズ'],graphics:['グラフィック','画質と Unreal Engine 5 設定のプレビュー'],gameplay:['ゲームプレイ','探索・カメラ・調査の設定'],controls:['操作設定','マウス・キーボード・コントローラー'],accessibility:['アクセシビリティ','字幕・動きの軽減・視認性'],language:['言語','インターフェースと音声言語']},
+  fields:{
+   master:['マスター音量','ゲーム全体の音量を調整します。'],music:['BGM 音量','起動画面とメニューの音楽を調整します。'],sfx:['効果音の音量','ゲーム内効果音のシミュレーション設定です。'],voice:['ボイス音量','会話音声のシミュレーション設定です。'],ambience:['環境音の音量','環境音のシミュレーション設定です。'],muted:['すべてミュート','再生中の音楽を消音します。'],menuMusic:['メニュー BGM','アップロード済みのメニュー曲を再生します。'],audioPreset:['音声出力','ゲーム音声のミックスプリセットです。'],
+   subtitles:['字幕を表示','会話中に字幕を表示します。'],subtitleSize:['字幕サイズ','字幕の文字サイズを設定します。'],resolution:['解像度','目標解像度のプレビューです。ブラウザー出力は変更しません。'],displayMode:['画面モード','ウィンドウ表示と全画面を切り替えます。'],brightness:['明るさ','シミュレーターの背景の明るさを調整します。'],contrast:['コントラスト','シーンのコントラストを調整します。'],hudScale:['HUD サイズ','ゲーム内 HUD の表示倍率です。'],
+   fps:['フレームレート上限','UE5 連携用のシミュレーション設定です。'],vsync:['垂直同期','UE5 向けの設定項目です。'],quality:['グラフィック品質','今後の UE5 実装用の画質プリセットです。'],shadows:['影の品質','静止画像の影には反映されません。'],textures:['テクスチャ品質','製品版向けの画質設定です。'],lumen:['Lumen グローバルイルミネーション','HTML プレビューでは Lumen は動作しません。'],motionBlur:['モーションブラー','動きによるぼかしを減らせます。'],filmGrain:['フィルムグレイン','映画的な映像表現の好みです。'],
+   fov:['視野角（FOV）','今後の一人称カメラ用設定です。'],headBob:['歩行時のカメラ揺れ','移動時のカメラ演出の設定です。'],cameraShake:['カメラシェイク','ホラー演出時の揺れを設定します。'],interactionHints:['操作ヒント','インタラクションの案内を表示します。'],objectives:['目標トラッカー','現在の目的を表示します。'],tutorials:['チュートリアル表示','チュートリアル案内の表示設定です。'],autosave:['オートセーブ間隔','実際のセーブ機能ではなく模擬設定です。'],
+   language:['表示言語','シミュレーターの表示言語を切り替えます。'],dialogueLanguage:['音声言語','今後のボイス対応用の設定です。'],invertY:['上下操作を反転','今後のカメラ操作用設定です。'],sensitivity:['マウス感度','一人称カメラの感度設定です。'],controller:['コントローラー対応','UE5 Common UI 向けの入力設定です。'],vibration:['振動の強さ','今後のゲームパッド振動の強さです。'],keyHints:['操作アイコン','キーボードやコントローラーの表示を選びます。'],reducedMotion:['動きを減らす','UI・背景・呼吸アニメーションを抑えます。'],highContrast:['高コントラスト UI','文字とメニューを見やすくします。'],safeZone:['5% セーフエリアを表示','画面端と UI の余白を確認します。'],textSize:['UI 文字サイズ','読みやすい文字サイズを選びます。']
+  },
+  options:{Headphones:'ヘッドホン','Stereo Speakers':'ステレオスピーカー','Home Theatre':'ホームシアター','Night Mode':'ナイトモード',Small:'小',Medium:'中',Large:'大','Extra Large':'特大',Windowed:'ウィンドウ',Fullscreen:'フルスクリーン',Unlimited:'無制限',Low:'低',High:'高',Epic:'最高',Cinematic:'シネマティック',Off:'オフ','Every 5 Minutes':'5分ごと','Every 10 Minutes':'10分ごと',Checkpoints:'チェックポイント',Normal:'標準','Keyboard & Mouse':'キーボードとマウス','Xbox Controller':'Xbox コントローラー','PlayStation Controller':'PlayStation コントローラー',Japanese:'日本語',English:'英語'},
+  reset:'初期設定に戻す',saved:'このブラウザーに保存済み · UE5 未連携',nav:'設定カテゴリ'
+ }
+};
+function settingName(key){return settingsI18n[st.lang]?.fields[key]?.[0]||optionDefs[key].name}
+function settingHelp(key){return settingsI18n[st.lang]?.fields[key]?.[1]||optionDefs[key].help}
+function groupName(group){return settingsI18n[st.lang]?.groups[group.id]?.[0]||group.label}
+function groupIntro(group){return settingsI18n[st.lang]?.groups[group.id]?.[1]||group.intro}
+function settingOptionName(value){return settingsI18n[st.lang]?.options[String(value)]||String(value)}
+function settingsResetLabel(){return settingsI18n[st.lang]?.reset||'RESTORE DEFAULTS'}
+function settingsSavedLabel(){return settingsI18n[st.lang]?.saved||'Saved locally · Settings not linked to UE5 build'}
 let settingsStore={};try{settingsStore=JSON.parse(localStorage.getItem('rot-game-settings-v1')||'{}')}catch{}
 const gameSettings=Object.fromEntries(Object.entries(optionDefs).map(([k,v])=>[k,settingsStore[k]===undefined?v.default:settingsStore[k]]));
 let settingsCategory='audio';
@@ -539,32 +574,32 @@ function renderDialogue(root){
 function renderGameSettings(root){
  root.replaceChildren();
  const shell=document.createElement('div');shell.className='settings-shell';
- const nav=document.createElement('nav');nav.className='settings-categories';nav.setAttribute('aria-label','Settings categories');
+ const nav=document.createElement('nav');nav.className='settings-categories';nav.setAttribute('aria-label',settingsI18n[st.lang]?.nav||'Settings categories');
  const content=document.createElement('section');content.className='settings-detail';
  function draw(){
   nav.replaceChildren();content.replaceChildren();
   const group=settingGroups.find(x=>x.id===settingsCategory)||settingGroups[0];
-  for(const entry of settingGroups){const b=btn('',()=>{settingsCategory=entry.id;draw()});b.className=entry.id===settingsCategory?'active':'';const symbol=document.createElement('span');symbol.textContent=entry.symbol;b.append(symbol,document.createTextNode(entry.label));nav.append(b)}
-  const title=document.createElement('h2');title.textContent=group.label;
-  const info=document.createElement('p');info.className='settings-description';info.textContent=group.intro;
+  for(const entry of settingGroups){const b=btn('',()=>{settingsCategory=entry.id;draw()});b.className=entry.id===settingsCategory?'active':'';const symbol=document.createElement('span');symbol.textContent=entry.symbol;b.append(symbol,document.createTextNode(groupName(entry)));nav.append(b)}
+  const title=document.createElement('h2');title.textContent=groupName(group);
+  const info=document.createElement('p');info.className='settings-description';info.textContent=groupIntro(group);
   content.append(title,info);
   for(const key of group.fields){
    const def=optionDefs[key],row=document.createElement('div');row.className='setting-line';
-   const left=document.createElement('div'),name=document.createElement('strong');name.textContent=def.name;
-   const help=document.createElement('small');help.textContent=def.help;left.append(name,help);
+   const left=document.createElement('div'),name=document.createElement('strong');name.textContent=settingName(key);
+   const help=document.createElement('small');help.textContent=settingHelp(key);left.append(name,help);
    const controls=document.createElement('div');controls.className='setting-controls';let control;
    if(def.kind==='range'){
-    control=document.createElement('input');control.type='range';control.min=def.min;control.max=def.max;control.step='1';control.value=gameSettings[key];control.setAttribute('aria-label',def.name);
+    control=document.createElement('input');control.type='range';control.min=def.min;control.max=def.max;control.step='1';control.value=gameSettings[key];control.setAttribute('aria-label',settingName(key));
     const out=document.createElement('output');out.textContent=gameSettings[key]+'%';
     control.oninput=()=>{gameSettings[key]=Number(control.value);out.textContent=control.value+'%';onGameSetting(key)};
     controls.append(control,out);
    }else if(def.kind==='toggle'){
-    control=document.createElement('input');control.type='checkbox';control.checked=!!gameSettings[key];control.setAttribute('aria-label',def.name);
+    control=document.createElement('input');control.type='checkbox';control.checked=!!gameSettings[key];control.setAttribute('aria-label',settingName(key));
     control.onchange=()=>{gameSettings[key]=control.checked;onGameSetting(key)};
     controls.append(control);
    }else{
-    control=document.createElement('select');control.setAttribute('aria-label',def.name);
-    for(const val of def.values){const o=document.createElement('option');o.value=val;o.textContent=val;control.append(o)}
+    control=document.createElement('select');control.setAttribute('aria-label',settingName(key));
+    for(const val of def.values){const o=document.createElement('option');o.value=val;o.textContent=settingOptionName(val);control.append(o)}
     control.value=gameSettings[key];
     control.onchange=()=>{gameSettings[key]=control.value;onGameSetting(key)};
     controls.append(control);
@@ -572,12 +607,12 @@ function renderGameSettings(root){
    row.append(left,controls);content.append(row);
   }
   const footer=document.createElement('div');footer.className='settings-footer';
-  const reset=btn('RESTORE DEFAULTS',()=>{for(const [k,d] of Object.entries(optionDefs))gameSettings[k]=d.default;onGameSetting('reset');draw()});
-  const note=document.createElement('span');note.className='settings-note';note.textContent='Saved locally · Settings not linked to UE5 build';
+  const reset=btn(settingsResetLabel(),()=>{for(const [k,d] of Object.entries(optionDefs))gameSettings[k]=d.default;onGameSetting('reset');draw()});
+  const note=document.createElement('span');note.className='settings-note';note.textContent=settingsSavedLabel();
   footer.append(reset,note);content.append(footer);
  }
  function onGameSetting(key){
-  if(key==='language'){st.lang={'English':'en','日本語':'ja','繁體中文':'zh'}[gameSettings.language];drawMenu();$('screenTitle').textContent=t().settings;hud()}
+  if(key==='language'){st.lang={'English':'en','日本語':'ja','繁體中文':'zh'}[gameSettings.language];drawMenu();$('screenTitle').textContent=t().settings;$('back').textContent='ESC · '+t().back;hud();draw()}
   if(key==='displayMode'){if(gameSettings.displayMode==='Fullscreen'){document.documentElement.requestFullscreen?.().catch(()=>{gameSettings.displayMode='Windowed';draw()})}else if(document.fullscreenElement)document.exitFullscreen?.()}
   if(key==='muted'||key==='menuMusic'){if(gameSettings.muted||!gameSettings.menuMusic)stopMusic();else{enableAudio();playMusic('menu')}}
   if(key==='master'||key==='music')syncMusicVolume();
@@ -589,7 +624,7 @@ function panel(){const s=st.screen;const title={journal:t().journal,inventory:t(
 if(s==='journal'){const tabs=['Records','Evidence','Folklore','Characters','Locations','Progress'];const nav=document.createElement('div');tabs.forEach(x=>nav.append(btn(x,()=>{st.tab=x;panel()},'tab'+(x===st.tab?' active':''))));root.append(nav);const grid=document.createElement('div');grid.className='cards';grid.style.marginTop='20px';const data=({Records:[['記','Missing travelers','Unresolved stories surrounding the shrine.'],['鈴','The Drowned Bell','A bell heard without a visible source.'],['社','Shrine Register','Records waiting to be examined.']],Evidence:[['守','Omamori','An old protective charm.'],['霊','Spirit Trace','A pale remnant of a wandering spirit.'],['文','Letter','A weathered letter.']],Folklore:[['界','Kakuriyo','The unseen realm.'],['鳥','Torii','A passage into sacred space.'],['祭','Ritual','A tradition whose meaning is uncertain.']]})[st.tab]||[['人','Tsushima Mewa','Playable protagonist.'],['人','Tojo Seishi','A figure connected to the shrine.'],['地','The Shrine','A place requiring further investigation.']];data.forEach(([g,h,d])=>grid.append(card(g,h,d)));root.append(grid)}
 else if(s==='inventory'){const layout=document.createElement('div');layout.className='columns';const list=document.createElement('div'),detail=document.createElement('div');const items=[['守','Omamori','Protective charm'],['贈','Souvenir','An item carried into the shrine'],['棒','Kanabo','A heavy ritual implement']];items.forEach(([g,n,d],i)=>list.append(btn(g+'　'+n,()=>{detail.replaceChildren(card(g,n,d),btn('Inspect',()=>alert(n+' · '+d)))},'list-btn')));detail.append(card(...items[0]));layout.append(list,detail);root.append(layout)}
 else if(s==='pause'){['Resume','Journal','Inventory','Settings','Main Menu'].forEach((x,i)=>root.append(btn(x,()=>open(['game','journal','inventory','settings','menu'][i]),'list-btn')))}
-else if(s==='settings'){renderGameSettings(root)}
+else if(s==='settings'){gameSettings.language={en:'English',ja:'日本語',zh:'繁體中文'}[st.lang];renderGameSettings(root)}
 else if(s==='dialogue'){renderDialogue(root)}
 else if(s==='chapters'){root.append(card('壱','Prologue','The shrine · UI simulation available'));root.append(btn('Start Prologue',()=>open('game')))}
 else if(s==='credits'){root.append(card('曙','Aurora Studio','A standalone UI interaction concept for Revenant of Tsushima. Not a released game build.'))}
@@ -597,7 +632,7 @@ else if(s==='credits'){root.append(card('曙','Aurora Studio','A standalone UI i
 function back(){if($('sim').classList.contains('open')){$('sim').classList.remove('open');return}if(st.screen==='game')open('pause');else if(st.screen==='pause')open('game');else if(st.screen==='journal'||st.screen==='inventory'||st.screen==='dialogue')open('game');else open('menu')}
 function collect(){st.souls=Math.min(3,st.souls+1);hud();$('interact').textContent=st.souls===3?'[ E ] SPIRITS COMPLETE':'[ E ] INVESTIGATE / COLLECT'}
 $('interact').onclick=collect;$('collect').onclick=collect;$('reset').onclick=()=>{st.souls=0;hud()};$('back').onclick=back;
-$('simToggle').onclick=()=>{$('sim').classList.toggle('open')};$('simClose').onclick=()=>$('sim').classList.remove('open');$('scenePick').onchange=e=>{st.scene=e.target.value;hud()};$('souls').oninput=e=>{st.souls=Number(e.target.value);hud()};$('scale').oninput=e=>{st.scale=Number(e.target.value);hud()};$('safeCheck').onchange=e=>{st.safe=e.target.checked;hud()};$('motionCheck').onchange=e=>{st.reduced=e.target.checked;hud()};$('hudCheck').onchange=e=>{st.showHUD=e.target.checked;hud()};$('lang').onclick=()=>{st.lang={en:'ja',ja:'zh',zh:'en'}[st.lang];drawMenu();if(st.screen!=='game'&&st.screen!=='menu')panel();hud()};
+$('simToggle').onclick=()=>{$('sim').classList.toggle('open')};$('simClose').onclick=()=>$('sim').classList.remove('open');$('scenePick').onchange=e=>{st.scene=e.target.value;hud()};$('souls').oninput=e=>{st.souls=Number(e.target.value);hud()};$('scale').oninput=e=>{st.scale=Number(e.target.value);hud()};$('safeCheck').onchange=e=>{st.safe=e.target.checked;hud()};$('motionCheck').onchange=e=>{st.reduced=e.target.checked;hud()};$('hudCheck').onchange=e=>{st.showHUD=e.target.checked;hud()};$('lang').onclick=()=>{st.lang={en:'ja',ja:'zh',zh:'en'}[st.lang];gameSettings.language={en:'English',ja:'日本語',zh:'繁體中文'}[st.lang];persistGameSettings();drawMenu();if(st.screen!=='game'&&st.screen!=='menu')panel();hud()};
 const screens=['menu','game','journal','inventory','dialogue','pause','settings','chapters'];screens.forEach(s=>$('quick').append(btn(s,()=>open(s),'action')));
 const LOAD_DURATION=25000;
 const SPLASH_DURATION=4200;
