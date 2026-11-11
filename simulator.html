@@ -391,11 +391,11 @@ const dismissIntro=()=>{$('intro').classList.add('done')};$('intro').addEventLis
 /* Non-destructive visual placement editor: positions in percent of game viewport.
    Nothing is committed to GitHub on drag; export JSON to finalize approved composition. */
 const layoutDefault={
- mewa:{x:53,y:25,w:27,opacity:1,z:3},
- seishi:{x:71,y:17,w:26,opacity:.85,z:2},
- logo:{x:8,y:17,w:32,opacity:1,z:6}
+ mewa:{x:50.4,y:14.8,w:33.2,opacity:1,z:3},
+ seishi:{x:63,y:13.2,w:39.6,opacity:.85,z:2},
+ logo:{x:8.2,y:7.3,w:41.6,opacity:1,z:6}
 };
-let loadedLayout={};try{loadedLayout=JSON.parse(localStorage.getItem('rot-visual-layout-v1')||'{}')}catch{}
+let loadedLayout={};try{loadedLayout=JSON.parse(localStorage.getItem('rot-visual-layout-v2')||'{}')}catch{}
 let layout=Object.fromEntries(Object.keys(layoutDefault).map(k=>[k,{...layoutDefault[k],...(loadedLayout[k]||{})}]));
 let selectedLayer='mewa',layoutIsOpen=false;
 const targets={
@@ -425,7 +425,7 @@ function refreshLayout(){
  $('layoutCoord').textContent='X '+sel.x.toFixed(1)+'%  ·  Y '+sel.y.toFixed(1)+'%  ·  SIZE '+sel.w.toFixed(1)+'%  ·  Z '+sel.z;
  for(const [id,el] of Object.entries(targets))el.classList.toggle('layout-selected',layoutIsOpen&&id===selectedLayer);
  $('layoutExport').value=JSON.stringify({referenceViewport:'1920x1080',units:'percent of viewport',layers:layout},null,2);
- localStorage.setItem('rot-visual-layout-v1',JSON.stringify(layout));
+ localStorage.setItem('rot-visual-layout-v2',JSON.stringify(layout));
 }
 function chooseLayoutTarget(id){selectedLayer=id;$('layoutTarget').value=id;refreshLayout()}
 function toggleLayout(force){
