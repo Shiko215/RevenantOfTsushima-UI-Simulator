@@ -312,6 +312,20 @@ body.reduce-motion .intro::before{animation:none;opacity:.38}
 .music-control:hover{border-color:#dfbd80}
 @media(max-width:900px){.settings-shell{grid-template-columns:165px minmax(0,1fr)}.setting-controls{min-width:160px}.setting-controls input[type="range"]{width:100px}}
 @media(max-width:650px){.settings-shell{grid-template-columns:1fr}.settings-categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}.settings-categories button{padding:8px 5px;gap:5px;font-size:10px}.settings-detail{padding:14px}.setting-line{align-items:flex-start;flex-wrap:wrap}.setting-controls{width:100%;justify-content:flex-start}.music-control{right:6%;top:9%}}
+
+/* v1.3: deliberately timed 25-second loading with rotating Mitsudomoe */
+.intro .family-mark{
+ width:112px;height:112px;opacity:1;
+ animation:rot-loading-orb 2.1s linear infinite!important;
+ filter:drop-shadow(0 0 12px #dfd5c299) drop-shadow(0 0 30px #8eafb26a)!important;
+}
+@keyframes rot-loading-orb{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.intro .skip{bottom:5%;left:0;right:0;text-align:center;color:#c9c1b2}
+.loading-progress{position:relative;z-index:1;width:min(320px,63vw);margin-top:0;display:flex;flex-direction:column;gap:9px;align-items:center}
+.loading-track{height:2px;width:100%;background:#c5b69b45;overflow:hidden}
+.loading-fill{height:100%;width:0;background:#d6b27c;box-shadow:0 0 9px #e7c586}
+.loading-stat{width:100%;display:flex;justify-content:space-between;font:10px 'IBM Plex Sans',sans-serif;letter-spacing:.17em;color:#d2c4a9}
+@media(prefers-reduced-motion:reduce){.intro .family-mark{animation:rot-loading-orb 9s linear infinite!important}}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
@@ -350,7 +364,7 @@ body.reduce-motion .intro::before{animation:none;opacity:.38}
  <p id="layoutMessage" role="status">Layout is saved in this browser automatically. Preview at 1920 × 1080 for final approval.</p>
 </aside>
 
-<div class="intro" id="intro" role="status" aria-label="Revenant of Tsushima opening"><img class="family-mark" src="public/tomoe.webp" alt=""><img src="public/rot-logo.webp" alt="津島・魂鬼"><small>THE VEIL REMEMBERS</small><span class="skip">CLICK OR PRESS ENTER TO CONTINUE</span></div>
+<div class="intro" id="intro" role="status" aria-label="Revenant of Tsushima opening"><img class="family-mark" src="public/tomoe.webp" alt=""><img src="public/rot-logo.webp" alt="津島・魂鬼"><small>THE VEIL REMEMBERS</small><div class="loading-progress" aria-label="Loading progress"><div class="loading-track"><div class="loading-fill" id="loadingFill"></div></div><div class="loading-stat"><span id="loadingLabel">LOADING THE VEIL</span><output id="loadingPercent">0%</output></div></div><span class="skip">THE SPIRITS ARE AWAKENING · 25 SECOND SIMULATED LOAD</span></div>
 <div id="safe" class="safe hidden" aria-hidden="true"></div><button class="sim-button" id="simToggle">SIMULATOR · F2</button>
 <aside id="sim" class="sim-panel" aria-label="Developer simulator panel"><button class="close" id="simClose" aria-label="Close">×</button><div class="eyebrow">INTERNAL UX TEST HARNESS</div><h2>UI Simulator v0.2</h2><p class="debug-only">Developer controls, separate from the player-facing game UI.</p>
 <label for="scenePick">TEST SCENE</label><select id="scenePick"><option value="washitsu">Washitsu / 和室</option><option value="graveyard">Graveyard / 墓地</option><option value="torii">Torii Path / 鳥居</option><option value="honden">Main Sanctuary / 本殿</option><option value="altar">Altar / 祭壇</option></select>
@@ -480,7 +494,7 @@ function enableAudio(){
 const st={screen:'menu',scene:saved.scene||'washitsu',souls:saved.souls||0,lang:saved.lang||'en',sight:false,scale:saved.scale||100,showHUD:true,safe:false,reduced:false,tab:'Records',selected:0};
 const t=()=>copy[st.lang],save=()=>localStorage.setItem('rot-html5-sim',JSON.stringify({scene:st.scene,souls:st.souls,lang:st.lang,scale:st.scale}));
 function updateMenuSelection(){Array.from($('menuButtons').children).forEach((b,i)=>{b.classList.toggle('selected',i===st.selected);if(i===st.selected)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')})}function drawMenu(){$('menuButtons').replaceChildren();t().menu.forEach((m,i)=>{let b=document.createElement('button');b.textContent=m;b.onclick=()=>menuAction(i);b.onmouseenter=()=>{st.selected=i;updateMenuSelection()};b.onfocus=()=>{st.selected=i;updateMenuSelection()};$('menuButtons').append(b)});updateMenuSelection();$('tagline').textContent=t().tag}
-function menuAction(i){if(i===0){st.souls=0;st.scene='washitsu';st.sight=false;open('game')}else if(i===1)open('game');else if(i===2)open('chapters');else if(i===3)open('settings');else if(i===4)open('credits');else alert('Exit is disabled in the browser simulator.')}
+function menuAction(i){if(i===0){st.souls=0;st.scene='washitsu';st.sight=false;startLoading('game')}else if(i===1)startLoading('game');else if(i===2)open('chapters');else if(i===3)open('settings');else if(i===4)open('credits');else alert('Exit is disabled in the browser simulator.')}
 function hud(){$('app').dataset.scene=st.scene;$('objectiveLabel').textContent=t().objective;$('objectiveText').textContent=t().quests[scenes.indexOf(st.scene)];$('progress').textContent=t().spirits+' · '+st.souls+'/3';$('ether').classList.toggle('active',st.sight);$('objective').style.transform='scale('+st.scale/100+')';$('objective').style.transformOrigin='top left';$('hudHelp').style.transform='scale('+st.scale/100+')';$('hudHelp').style.transformOrigin='bottom left';$('objective').style.visibility=st.showHUD?'visible':'hidden';$('hudHelp').style.visibility=st.showHUD?'visible':'hidden';$('interact').style.visibility=st.showHUD?'visible':'hidden';$('scenePick').value=st.scene;$('souls').value=st.souls;$('soulsOut').textContent=st.souls+' / 3';$('scale').value=st.scale;$('scaleOut').textContent=st.scale+'%';$('safe').classList.toggle('hidden',!st.safe);document.body.classList.toggle('reduce-motion',st.reduced);save()}
 function open(s){st.screen=s;$('app').dataset.screen=s;if(audioActivated){if(s==='menu'||s==='settings'||s==='pause')playMusic('menu');else stopMusic()}$('menu').classList.toggle('active',s==='menu');$('game').classList.toggle('active',s==='game');$('panelView').classList.toggle('active',s!=='menu'&&s!=='game');if(s!=='menu'&&s!=='game')panel();hud()}
 function btn(text,fn,klass='action'){const b=document.createElement('button');b.className=klass;b.textContent=text;b.onclick=fn;return b}
@@ -574,7 +588,34 @@ function collect(){st.souls=Math.min(3,st.souls+1);hud();$('interact').textConte
 $('interact').onclick=collect;$('collect').onclick=collect;$('reset').onclick=()=>{st.souls=0;hud()};$('back').onclick=back;
 $('simToggle').onclick=()=>{$('sim').classList.toggle('open')};$('simClose').onclick=()=>$('sim').classList.remove('open');$('scenePick').onchange=e=>{st.scene=e.target.value;hud()};$('souls').oninput=e=>{st.souls=Number(e.target.value);hud()};$('scale').oninput=e=>{st.scale=Number(e.target.value);hud()};$('safeCheck').onchange=e=>{st.safe=e.target.checked;hud()};$('motionCheck').onchange=e=>{st.reduced=e.target.checked;hud()};$('hudCheck').onchange=e=>{st.showHUD=e.target.checked;hud()};$('lang').onclick=()=>{st.lang={en:'ja',ja:'zh',zh:'en'}[st.lang];drawMenu();if(st.screen!=='game'&&st.screen!=='menu')panel();hud()};
 const screens=['menu','game','journal','inventory','dialogue','pause','settings','chapters'];screens.forEach(s=>$('quick').append(btn(s,()=>open(s),'action')));
-const dismissIntro=()=>{if(!$('intro').classList.contains('done')){$('intro').classList.add('done');if(audioActivated)playMusic('menu')}};$('intro').addEventListener('click',()=>{enableAudio();dismissIntro()});window.addEventListener('keydown',e=>{if(!$('intro').classList.contains('done')){if(e.key==='Enter'||e.key==='Escape'||e.key===' '){e.preventDefault();enableAudio();dismissIntro()}return}if(e.key==='F2'){e.preventDefault();$('sim').classList.toggle('open');return}if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;if(e.key==='Escape'){back();return}if(st.screen==='menu'){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();st.selected=(st.selected+(e.key==='ArrowDown'?1:5))%6;updateMenuSelection();$('menuButtons').children[st.selected].focus()}else if(e.key==='Enter'&&document.activeElement.tagName!=='BUTTON')menuAction(st.selected);return}const k=e.key.toLowerCase();if(k==='j')open('journal');if(k==='i')open('inventory');if(k==='d')open('dialogue');if(k==='q'&&st.screen==='game'){st.sight=!st.sight;hud()}if(k==='e'&&st.screen==='game')collect()});
+const LOAD_DURATION=25000;
+let loadingTimer=null,loadingActive=false;
+function startLoading(destination){
+ if(loadingTimer!==null)clearInterval(loadingTimer);
+ loadingActive=true;
+ const intro=$('intro');intro.classList.remove('done');
+ const began=performance.now();
+ $('loadingFill').style.width='0%';$('loadingPercent').textContent='0%';
+ $('loadingLabel').textContent=destination==='game'?'ENTERING THE HIDDEN REALM':'LOADING THE VEIL';
+ if(audioActivated)playMusic('loading');
+ function tick(){
+  const fraction=Math.min(1,(performance.now()-began)/LOAD_DURATION),pct=Math.floor(fraction*100);
+  $('loadingFill').style.width=(fraction*100).toFixed(2)+'%';
+  $('loadingPercent').textContent=pct+'%';
+  if(fraction>=1){
+   clearInterval(loadingTimer);loadingTimer=null;loadingActive=false;
+   intro.classList.add('done');open(destination);
+  }
+ }
+ tick();loadingTimer=setInterval(tick,60);
+}
+$('intro').addEventListener('pointerdown',enableAudio);
+window.addEventListener('keydown',e=>{
+ if(loadingActive){
+  if(e.key==='Enter'||e.key===' '){enableAudio();e.preventDefault()}
+  return;
+ }
+ if(e.key==='F2'){e.preventDefault();$('sim').classList.toggle('open');return}if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;if(e.key==='Escape'){back();return}if(st.screen==='menu'){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();st.selected=(st.selected+(e.key==='ArrowDown'?1:5))%6;updateMenuSelection();$('menuButtons').children[st.selected].focus()}else if(e.key==='Enter'&&document.activeElement.tagName!=='BUTTON')menuAction(st.selected);return}const k=e.key.toLowerCase();if(k==='j')open('journal');if(k==='i')open('inventory');if(k==='d')open('dialogue');if(k==='q'&&st.screen==='game'){st.sight=!st.sight;hud()}if(k==='e'&&st.screen==='game')collect()});
 
 /* Non-destructive visual placement editor: positions in percent of game viewport.
    Nothing is committed to GitHub on drag; export JSON to finalize approved composition. */
@@ -653,6 +694,6 @@ refreshLayout();
 
 $('musicToggle').onclick=()=>{if(!activeSoundtrack){gameSettings.muted=false;gameSettings.menuMusic=true;enableAudio();playMusic('menu')}else{gameSettings.muted=true;stopMusic()}persistGameSettings();syncMusicButton()};
 window.addEventListener('pointerdown',enableAudio,{once:true});
-applyGameSettings();syncMusicButton();drawMenu();open('menu');setTimeout(dismissIntro,4200);
+applyGameSettings();syncMusicButton();drawMenu();open('menu');startLoading('menu');
 })();
 </script></body></html>
