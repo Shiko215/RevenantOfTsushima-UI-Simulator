@@ -196,6 +196,32 @@ body.reduce-motion .main-menu button::before{animation:none!important}
  #app[data-screen="menu"] #menu .logo-img{width:85vw;height:27vh}
  #app[data-screen="menu"] #menu .main-menu{bottom:5%}
 }
+
+/* v0.9 — atmospheric title splash with the actual RoT shrine screenshot */
+.intro{background:#04080b;isolation:isolate}
+.intro::before{
+ content:"";position:absolute;inset:-3%;z-index:-2;
+ background:url("public/rot-shrine.webp") center 47%/cover no-repeat;
+ opacity:.44;filter:brightness(.71) saturate(.73) blur(1px);
+ transform:scale(1.02);animation:intro-world-breathe 7s ease-in-out infinite alternate;
+ pointer-events:none;
+}
+.intro::after{
+ content:"";position:absolute;inset:0;z-index:-1;
+ background:radial-gradient(ellipse at 50% 48%,#04060b20 0%,#020408a8 68%,#000d 100%),
+ linear-gradient(180deg,#01030788,transparent 35%,#010308a6 100%);
+ pointer-events:none;
+}
+.intro .family-mark{filter:drop-shadow(0 0 13px #ded2b078)}
+.intro img:not(.family-mark){filter:drop-shadow(0 0 18px #a72f2d85);max-height:43vh}
+.intro small{text-shadow:0 2px 10px #000}
+.intro .skip{text-shadow:0 2px 9px #000;color:#c2b8a2}
+@keyframes intro-world-breathe{
+ from{opacity:.28;transform:scale(1.02);filter:brightness(.62) saturate(.65) blur(1px)}
+ to{opacity:.49;transform:scale(1.045);filter:brightness(.79) saturate(.8) blur(0px)}
+}
+@media(prefers-reduced-motion:reduce){.intro::before{animation:none;opacity:.38}}
+body.reduce-motion .intro::before{animation:none;opacity:.38}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
