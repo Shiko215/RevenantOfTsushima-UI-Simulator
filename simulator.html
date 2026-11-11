@@ -257,6 +257,31 @@ body.reduce-motion .intro::before{animation:none;opacity:.38}
  #app[data-screen="menu"] .title-duo .duo-mewa{left:-12%;top:-9%;height:99%}
  #app[data-screen="menu"] #menu .logo-img{width:83vw;height:27vh}
 }
+
+/* Visual layout editor: reversible, saved locally, no destructively cropped source files */
+#app .title-duo{inset:0!important;width:100%!important;height:100%!important;overflow:visible!important;opacity:1!important;mask-image:none!important;-webkit-mask-image:none!important;z-index:3}
+#app .title-duo img{max-width:none!important;max-height:none!important;height:auto!important;object-fit:contain!important;clip-path:none!important;mask-image:none!important;-webkit-mask-image:none!important;transform:none!important}
+#app.layout-editing .title-duo{pointer-events:auto!important}
+#app.layout-editing .title-duo img{pointer-events:auto!important;cursor:grab;touch-action:none;outline:1px dashed #d1b37b82;outline-offset:4px}
+#app.layout-editing .title-duo img:active{cursor:grabbing}
+#app.layout-editing #menu .logo-img{pointer-events:auto;cursor:grab;touch-action:none;outline:1px dashed #d1b37b82;outline-offset:5px}
+#app.layout-editing .layout-selected{outline:2px solid #b1d9d1!important;outline-offset:5px!important}
+.layout-launch{position:absolute;z-index:40;right:0;top:22%;padding:12px 9px;background:#19282aef;border:1px solid #c8a773;color:#efe1c3;font-size:11px;letter-spacing:.14em;writing-mode:vertical-rl}
+.layout-panel{position:absolute;z-index:50;left:14px;top:14px;width:min(310px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;background:#0b1719f5;border:1px solid #bfa471a8;box-shadow:0 20px 60px #000a;padding:18px;color:#ece1cf;backdrop-filter:blur(14px)}
+.layout-panel[hidden]{display:none}
+.layout-panel h2{font:500 18px 'Noto Serif JP',serif;margin:5px 0 8px}
+.layout-panel p{font-size:12px;color:#bbb09c;line-height:1.6;margin:7px 0}
+.layout-panel label{font:11px 'IBM Plex Sans',sans-serif;letter-spacing:.09em;color:#d9c39c;display:block;margin:13px 0 5px}
+.layout-panel select,.layout-panel input[type=range],.layout-panel textarea{width:100%}
+.layout-panel select,.layout-panel textarea{background:#1c292c;color:#f1e7d7;border:1px solid #9b886b;padding:9px}
+.layout-panel textarea{height:112px;font:11px monospace;resize:vertical}
+.layout-panel input[type=range]{accent-color:#c4a773}
+.layout-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.layout-actions button{border:1px solid #988367;background:#263638;color:#f2e8d7;padding:8px 10px;font-size:12px}
+.layout-actions button:hover{border-color:#e8c582}
+.layout-mini{font:11px monospace;color:#bfc9c6;margin:8px 0}
+#app:not(.layout-editing) .layout-panel{display:none}
+@media(max-width:650px){.layout-panel{left:5px;top:5px;max-height:80dvh}.layout-launch{top:16%}}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
@@ -275,6 +300,25 @@ body.reduce-motion .intro::before{animation:none;opacity:.38}
 <section id="game" class="hud"><div class="objective" id="objective"><span class="eyebrow" id="objectiveLabel">CURRENT OBJECTIVE</span><strong id="objectiveText"></strong><small id="progress"></small></div><button class="interaction" id="interact">[ E ] INVESTIGATE</button><div class="ether" id="ether"><div class="trace">霊</div><div class="ether-caption">ETHER SIGHT / 霊視</div></div><div class="hud-nav" id="hudHelp">J Journal · I Inventory · Q Ether Sight · D Dialogue · Esc Pause</div></section>
 <section class="view" id="panelView"><button class="back" id="back">ESC · BACK</button><span class="eyebrow" id="screenLabel">INVESTIGATION</span><h1 id="screenTitle">調査記録</h1><div class="sheet" id="panelContent"></div></section>
 <div class="foot">© AURORA STUDIO · HTML5 SIMULATOR</div>
+<button id="layoutOpen" type="button" class="layout-launch" aria-label="Open character layout editor">LAYOUT · F3</button>
+<aside id="layoutPanel" class="layout-panel" hidden aria-label="Visual character layout editor">
+ <div class="eyebrow">AURORA STUDIO · VISUAL LAYOUT</div>
+ <h2>Character Composition Editor</h2>
+ <p>Drag the two characters and the game logo. Adjust sizes and overlap here, then copy the exact layout parameters.</p>
+ <label for="layoutTarget">SELECT LAYER</label>
+ <select id="layoutTarget"><option value="mewa">Tsushima Mewa / Front</option><option value="seishi">Tojo Seishi / Behind</option><option value="logo">Official Game Logo</option></select>
+ <div class="layout-mini" id="layoutCoord"></div>
+ <label for="layoutX">HORIZONTAL POSITION</label><input id="layoutX" type="range" min="-30" max="110" step=".2">
+ <label for="layoutY">VERTICAL POSITION</label><input id="layoutY" type="range" min="-30" max="110" step=".2">
+ <label for="layoutW">SIZE (VIEWPORT WIDTH %)</label><input id="layoutW" type="range" min="8" max="85" step=".2">
+ <label for="layoutOpacity">OPACITY</label><input id="layoutOpacity" type="range" min=".2" max="1" step=".01">
+ <div class="layout-actions"><button id="layoutFront" type="button">Bring Forward</button><button id="layoutBack" type="button">Send Backward</button><button id="layoutReset" type="button">Reset Layout</button></div>
+ <label for="layoutExport">COPY THESE PARAMETERS TO CHATGPT</label>
+ <textarea id="layoutExport" spellcheck="false" readonly></textarea>
+ <div class="layout-actions"><button id="layoutCopy" type="button">Copy Parameters</button><button id="layoutClose" type="button">Done / Close (F3)</button></div>
+ <p id="layoutMessage" role="status">Layout is saved in this browser automatically. Preview at 1920 × 1080 for final approval.</p>
+</aside>
+
 <div class="intro" id="intro" role="status" aria-label="Revenant of Tsushima opening"><img class="family-mark" src="public/tomoe.webp" alt=""><img src="public/rot-logo.webp" alt="津島・魂鬼"><small>THE VEIL REMEMBERS</small><span class="skip">CLICK OR PRESS ENTER TO CONTINUE</span></div>
 <div id="safe" class="safe hidden" aria-hidden="true"></div><button class="sim-button" id="simToggle">SIMULATOR · F2</button>
 <aside id="sim" class="sim-panel" aria-label="Developer simulator panel"><button class="close" id="simClose" aria-label="Close">×</button><div class="eyebrow">INTERNAL UX TEST HARNESS</div><h2>UI Simulator v0.2</h2><p class="debug-only">Developer controls, separate from the player-facing game UI.</p>
@@ -342,6 +386,82 @@ $('interact').onclick=collect;$('collect').onclick=collect;$('reset').onclick=()
 $('simToggle').onclick=()=>{$('sim').classList.toggle('open')};$('simClose').onclick=()=>$('sim').classList.remove('open');$('scenePick').onchange=e=>{st.scene=e.target.value;hud()};$('souls').oninput=e=>{st.souls=Number(e.target.value);hud()};$('scale').oninput=e=>{st.scale=Number(e.target.value);hud()};$('safeCheck').onchange=e=>{st.safe=e.target.checked;hud()};$('motionCheck').onchange=e=>{st.reduced=e.target.checked;hud()};$('hudCheck').onchange=e=>{st.showHUD=e.target.checked;hud()};$('lang').onclick=()=>{st.lang={en:'ja',ja:'zh',zh:'en'}[st.lang];drawMenu();if(st.screen!=='game'&&st.screen!=='menu')panel();hud()};
 const screens=['menu','game','journal','inventory','dialogue','pause','settings','chapters'];screens.forEach(s=>$('quick').append(btn(s,()=>open(s),'action')));
 const dismissIntro=()=>{$('intro').classList.add('done')};$('intro').addEventListener('click',dismissIntro);window.addEventListener('keydown',e=>{if(!$('intro').classList.contains('done')){if(e.key==='Enter'||e.key==='Escape'||e.key===' '){e.preventDefault();dismissIntro()}return}if(e.key==='F2'){e.preventDefault();$('sim').classList.toggle('open');return}if(['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName))return;if(e.key==='Escape'){back();return}if(st.screen==='menu'){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();st.selected=(st.selected+(e.key==='ArrowDown'?1:5))%6;updateMenuSelection();$('menuButtons').children[st.selected].focus()}else if(e.key==='Enter'&&document.activeElement.tagName!=='BUTTON')menuAction(st.selected);return}const k=e.key.toLowerCase();if(k==='j')open('journal');if(k==='i')open('inventory');if(k==='d')open('dialogue');if(k==='q'&&st.screen==='game'){st.sight=!st.sight;hud()}if(k==='e'&&st.screen==='game')collect()});
+
+/* Non-destructive visual placement editor: positions in percent of game viewport.
+   Nothing is committed to GitHub on drag; export JSON to finalize approved composition. */
+const layoutDefault={
+ mewa:{x:53,y:25,w:27,opacity:1,z:3},
+ seishi:{x:71,y:17,w:26,opacity:.85,z:2},
+ logo:{x:8,y:17,w:32,opacity:1,z:6}
+};
+let loadedLayout={};try{loadedLayout=JSON.parse(localStorage.getItem('rot-visual-layout-v1')||'{}')}catch{}
+let layout=Object.fromEntries(Object.keys(layoutDefault).map(k=>[k,{...layoutDefault[k],...(loadedLayout[k]||{})}]));
+let selectedLayer='mewa',layoutIsOpen=false;
+const targets={
+ mewa:document.querySelector('.duo-mewa'),
+ seishi:document.querySelector('.duo-seishi'),
+ logo:document.querySelector('#menu .logo-img')
+};
+function refreshLayout(){
+ for(const [id,el] of Object.entries(targets)){
+  const p=layout[id];const pr=id==='logo'?document.querySelector('#menu'):document.querySelector('#app');
+  const rect=pr.getBoundingClientRect();
+  // Logo is inside #menu's padded view: account for its offset when using viewport-relative coordinates.
+  const parentRect=el.offsetParent?.getBoundingClientRect()||rect;
+  el.style.setProperty('left',(p.x*rect.width/100-(parentRect.left-rect.left))+'px','important');
+  el.style.setProperty('top',(p.y*rect.height/100-(parentRect.top-rect.top))+'px','important');
+  el.style.setProperty('right','auto','important');
+  el.style.setProperty('bottom','auto','important');
+  el.style.setProperty('width',(p.w*rect.width/100)+'px','important');
+  el.style.setProperty('height','auto','important');
+  el.style.setProperty('max-width','none','important');
+  el.style.setProperty('max-height','none','important');
+  el.style.setProperty('margin','0','important');
+  el.style.setProperty('opacity',String(p.opacity),'important');
+  el.style.setProperty('z-index',String(p.z),'important');
+ }
+ const sel=layout[selectedLayer];$('layoutX').value=sel.x;$('layoutY').value=sel.y;$('layoutW').value=sel.w;$('layoutOpacity').value=sel.opacity;
+ $('layoutCoord').textContent='X '+sel.x.toFixed(1)+'%  ·  Y '+sel.y.toFixed(1)+'%  ·  SIZE '+sel.w.toFixed(1)+'%  ·  Z '+sel.z;
+ for(const [id,el] of Object.entries(targets))el.classList.toggle('layout-selected',layoutIsOpen&&id===selectedLayer);
+ $('layoutExport').value=JSON.stringify({referenceViewport:'1920x1080',units:'percent of viewport',layers:layout},null,2);
+ localStorage.setItem('rot-visual-layout-v1',JSON.stringify(layout));
+}
+function chooseLayoutTarget(id){selectedLayer=id;$('layoutTarget').value=id;refreshLayout()}
+function toggleLayout(force){
+ layoutIsOpen=typeof force==='boolean'?force:!layoutIsOpen;
+ $('app').classList.toggle('layout-editing',layoutIsOpen);
+ $('layoutPanel').hidden=!layoutIsOpen;
+ $('layoutOpen').textContent=layoutIsOpen?'CLOSE · F3':'LAYOUT · F3';
+ if(layoutIsOpen){$('intro').classList.add('done');if(st.screen!=='menu')open('menu')}
+ refreshLayout();
+}
+$('layoutOpen').onclick=()=>toggleLayout();$('layoutClose').onclick=()=>toggleLayout(false);
+$('layoutTarget').onchange=e=>chooseLayoutTarget(e.target.value);
+for(const [field,key] of [['layoutX','x'],['layoutY','y'],['layoutW','w'],['layoutOpacity','opacity']]){
+ $(field).oninput=e=>{layout[selectedLayer][key]=Number(e.target.value);refreshLayout()};
+}
+$('layoutFront').onclick=()=>{layout[selectedLayer].z=Math.min(10,layout[selectedLayer].z+1);refreshLayout()};
+$('layoutBack').onclick=()=>{layout[selectedLayer].z=Math.max(1,layout[selectedLayer].z-1);refreshLayout()};
+$('layoutReset').onclick=()=>{layout=JSON.parse(JSON.stringify(layoutDefault));refreshLayout()};
+$('layoutCopy').onclick=async()=>{
+ const value=$('layoutExport').value;try{await navigator.clipboard.writeText(value);$('layoutMessage').textContent='Copied! Paste the JSON into ChatGPT.'}
+ catch{$('layoutExport').focus();$('layoutExport').select();$('layoutMessage').textContent='Select and copy the highlighted JSON manually.'}
+};
+for(const [id,el] of Object.entries(targets)){
+ el.addEventListener('pointerdown',e=>{
+  if(!layoutIsOpen)return;
+  chooseLayoutTarget(id);e.preventDefault();
+  const start={clientX:e.clientX,clientY:e.clientY,x:layout[id].x,y:layout[id].y};
+  const area=$('app').getBoundingClientRect();el.setPointerCapture(e.pointerId);
+  function move(ev){layout[id].x=Math.round((start.x+(ev.clientX-start.clientX)/area.width*100)*10)/10;layout[id].y=Math.round((start.y+(ev.clientY-start.clientY)/area.height*100)*10)/10;refreshLayout()}
+  function up(){el.removeEventListener('pointermove',move);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up)}
+  el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up);
+ });
+}
+window.addEventListener('resize',refreshLayout);
+window.addEventListener('keydown',e=>{if(e.key==='F3'){e.preventDefault();toggleLayout()}},true);
+refreshLayout();
+
 drawMenu();open('menu');setTimeout(dismissIntro,4200);
 })();
 </script></body></html>
