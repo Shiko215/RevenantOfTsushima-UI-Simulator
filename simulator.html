@@ -68,6 +68,21 @@ body.reduce-motion *,body.reduce-motion *:before,body.reduce-motion *:after{anim
 .family-corner{display:none!important}
 @media(prefers-reduced-motion:reduce){.main-menu button::before{animation:none!important}}
 body.reduce-motion .main-menu button::before{animation:none!important}
+
+/* v0.4: use the actual UE5 washitsu screenshot for gameplay */
+#app[data-screen="game"][data-scene="washitsu"] .scene-art{
+  background-image:url("gameplay-washitsu.webp"),url("rot-town.webp");
+  background-position:center center;
+  background-size:cover;
+  animation:none;
+  filter:brightness(.97) contrast(1.02);
+}
+#app[data-screen="game"] .scene:before{
+  background:linear-gradient(180deg,rgba(2,5,8,.42),transparent 25%,transparent 68%,rgba(2,5,8,.42));
+}
+#app[data-screen="game"] .lantern-glow{display:none}
+#app[data-screen="game"][data-scene="washitsu"] .fog{opacity:.16}
+#app[data-screen="game"] .scene-art{animation:none}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
