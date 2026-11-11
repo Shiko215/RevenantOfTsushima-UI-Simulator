@@ -222,6 +222,41 @@ body.reduce-motion .main-menu button::before{animation:none!important}
 }
 @media(prefers-reduced-motion:reduce){.intro::before{animation:none;opacity:.38}}
 body.reduce-motion .intro::before{animation:none;opacity:.38}
+
+/* v1.0 composition correction based on actual source image aspect ratios:
+   Seishi 900x1750, Mewa 900x1350. No full-height standees. */
+#app[data-screen="menu"] .title-duo{
+  left:auto;right:0;top:17%;bottom:0;width:52%;
+  overflow:hidden;opacity:1;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 8%,#000 100%);
+  mask-image:linear-gradient(to right,transparent 0%,#000 8%,#000 100%);
+}
+#app[data-screen="menu"] .title-duo .duo-seishi{
+  right:-2%;left:auto;top:4%;height:130%;width:auto;
+  opacity:.83;filter:brightness(.68) saturate(.73) drop-shadow(-8px 9px 22px #000c);
+  z-index:1;
+}
+#app[data-screen="menu"] .title-duo .duo-mewa{
+  left:-5%;right:auto;top:-10%;height:109%;width:auto;
+  opacity:.97;filter:brightness(.90) saturate(.83) drop-shadow(8px 9px 24px #000b);
+  z-index:2;
+  /* The gold staff occupies the far-left 25% of the source illustration.
+     Hide that strip in the menu composition, retain original source file. */
+  clip-path:inset(0 0 0 26%);
+}
+#app[data-screen="menu"] #menu .logo-img{width:min(720px,51vw);height:clamp(210px,36vh,360px)}
+@media(max-width:1000px){
+ #app[data-screen="menu"] .title-duo{width:58%;top:20%}
+ #app[data-screen="menu"] .title-duo .duo-seishi{right:-13%;top:4%;height:117%}
+ #app[data-screen="menu"] .title-duo .duo-mewa{left:-10%;top:-7%;height:100%}
+ #app[data-screen="menu"] #menu .logo-img{width:min(620px,54vw)}
+}
+@media(max-width:650px){
+ #app[data-screen="menu"] .title-duo{width:68%;top:37%;opacity:.60}
+ #app[data-screen="menu"] .title-duo .duo-seishi{right:-29%;top:2%;height:110%}
+ #app[data-screen="menu"] .title-duo .duo-mewa{left:-12%;top:-9%;height:99%}
+ #app[data-screen="menu"] #menu .logo-img{width:83vw;height:27vh}
+}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
