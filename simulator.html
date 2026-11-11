@@ -607,7 +607,7 @@ function renderGameSettings(root){
    row.append(left,controls);content.append(row);
   }
   const footer=document.createElement('div');footer.className='settings-footer';
-  const reset=btn(settingsResetLabel(),()=>{for(const [k,d] of Object.entries(optionDefs))gameSettings[k]=d.default;onGameSetting('reset');draw()});
+  const reset=btn(settingsResetLabel(),()=>{for(const [k,d] of Object.entries(optionDefs))gameSettings[k]=d.default;gameSettings.language={en:'English',ja:'日本語',zh:'繁體中文'}[st.lang];onGameSetting('reset');draw()});
   const note=document.createElement('span');note.className='settings-note';note.textContent=settingsSavedLabel();
   footer.append(reset,note);content.append(footer);
  }
