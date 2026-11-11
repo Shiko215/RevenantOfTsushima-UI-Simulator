@@ -122,6 +122,10 @@ The existing approved main-menu character layout and F3 visual editor remain ava
 
 ## v1.3: 25-second Tomoe loading screen
 
-The HTML5 Simulator now displays a **25-second simulated loading screen** both on first launch and when choosing New Game / Continue. The official `public/tomoe.webp` crest rotates continuously in the center with a 0–100% time-based progress indicator, logo, atmospheric shrine background and uploaded Loading BGM. At 25 seconds, the splash transitions automatically to the main menu or gameplay and menu music begins where appropriate.
+The HTML5 Simulator displays a **25-second simulated loading screen** when choosing New Game / Continue. Initial launch uses a separate 4.2-second logo splash. The official `public/tomoe.webp` crest rotates continuously in the center with a 0–100% time-based progress indicator, logo, atmospheric shrine background and uploaded Loading BGM. At 25 seconds, the splash transitions automatically to the main menu or gameplay and menu music begins where appropriate.
 
 This is an intentional UX timing demonstration, **not genuine asset-loading progress**. Clicking or pressing Enter while loading can unlock audio playback under browser autoplay policies, but does not skip the 25-second sequence. Reduced-motion preference slows the spinner. The loading delay is defined by `LOAD_DURATION=25000` in `simulator.html`.
+
+## v1.3.1: Separate startup splash and gameplay loading
+
+Initial page launch shows the original **4.2-second animated logo splash** (official logo and gently breathing Tomoe crest), without the 25-second progress bar. It automatically enters the Main Menu. The **25-second rotating Tomoe loading screen** with simulated progress and Loading BGM is shown only when selecting **New Game** or **Continue**. Menu BGM begins once the menu is entered, subject to browser autoplay policies. The loading progress is simulated, not actual UE5 asset loading.
