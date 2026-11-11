@@ -1,0 +1,10 @@
+{
+  "description": "Explore a cinematic Japanese folklore horror game prototype with interactive menus, investigation tools, inventory, dialogue, and settings.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
