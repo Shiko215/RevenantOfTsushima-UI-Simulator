@@ -104,3 +104,18 @@ Once the binary assets are committed, the standalone file can be previewed via G
 The official WebP files are now in the repository's `public/` folder. The standalone `simulator.html` has been updated to reference `public/mewa.webp`, `public/seishi.webp`, `public/rot-logo.webp`, `public/tomoe.webp`, `public/rot-shrine.webp`, `public/rot-town.webp` and `public/gameplay-washitsu.webp`. On the **Washitsu** gameplay test scene, the simulator uses the uploaded UE5 candlelit interior screenshot instead of the placeholder streetscape.
 
 Do not move these files back to the root directory merely for the standalone page. The GitHub Pages path and the Vite project's asset handling are different; keep relative paths correct for each deployment route. The standalone HTML has been updated for the current repository layout.
+
+
+## v1.2: Audio soundtrack and full game settings
+
+The HTML5 simulator uses the two MP3 files uploaded under `public/`:
+- `Revenant of Tsushima_Loading_V0-128kbps.mp3` for the opening splash (when playback starts with a user gesture)
+- `Revenant of Tsushima_Menu_V1_1006-128kbps.mp3` for the main menu, settings, and pause screens
+
+Browsers generally block unprompted audio autoplay. Click/tap or press Enter/Space/Escape at the splash to activate sound. When the timed intro finishes without interaction, the soundtrack begins after the user's first click. The on-screen **MUSIC** button can also activate audio.
+
+Seven settings groups are available: **Audio, Display, Graphics, Gameplay, Controls, Accessibility, Language**, with 41 controls. Music and master audio sliders affect actual MP3 playback; UI scale, brightness, contrast, safe-area display and reduced-motion settings affect the HTML preview. Browser fullscreen is functional where supported. Settings are stored in localStorage.
+
+**Important:** Graphics settings such as Lumen, shadows, textures, FPS, camera FOV, autosave and gamepad vibration are UI/UX simulation parameters for future UE5 UMG implementation; they do not alter a static browser screenshot or modify the Unreal project. Sound effects and voice channel volumes are prepared as UI simulation settings; no SFX or dialogue recordings are attached yet.
+
+The existing approved main-menu character layout and F3 visual editor remain available.
