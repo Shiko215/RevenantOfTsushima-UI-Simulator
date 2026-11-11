@@ -69,3 +69,11 @@ The browser simulator is intended for design approval, usability experiments, sa
 No license is granted by this repository unless the repository owner adds one.
 
 © Aurora Studio.
+
+## Standalone HTML5 edition (no build needed)
+
+A separate, single-file simulator is available at **[simulator.html](./simulator.html)**. Download this file and open it directly in a modern web browser. No package manager, web server, or React build is needed. Fonts may use an internet connection; all simulator JavaScript, CSS, and placeholder scenery are embedded in the HTML file.
+
+Press **F2** or select **SIMULATOR** to open the debug panel. Use **J** for journal, **I** for inventory, **Q** for Ether Sight, **D** for dialogue, and **Esc** to pause or go back. In the simulator panel you can change demo scenes, collected spirits, HUD scale, accessibility and safe area options.
+
+The existing React/Vite edition remains available and unchanged as the Figma Make project. GitHub Pages is not automatically enabled by adding the HTML file. The repository is currently private, so public Pages access depends on repository visibility and GitHub plan eligibility.
