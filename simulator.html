@@ -326,6 +326,17 @@ body.reduce-motion .intro::before{animation:none;opacity:.38}
 .loading-fill{height:100%;width:0;background:#d6b27c;box-shadow:0 0 9px #e7c586}
 .loading-stat{width:100%;display:flex;justify-content:space-between;font:10px 'IBM Plex Sans',sans-serif;letter-spacing:.17em;color:#d2c4a9}
 @media(prefers-reduced-motion:reduce){.intro .family-mark{animation:rot-loading-orb 9s linear infinite!important}}
+
+/* Two distinct sequences: 4.2s first-launch logo splash, 25s gameplay loader */
+.intro.intro-splash .loading-progress{display:none}
+.intro.intro-splash .skip{display:none}
+.intro.intro-splash .family-mark{
+ animation:intro-breath 2.2s ease-in-out infinite alternate!important;
+ width:90px;height:90px;
+}
+.intro.intro-loading .loading-progress{display:flex}
+.intro.intro-loading .family-mark{animation:rot-loading-orb 2.1s linear infinite!important}
+.intro.intro-splash img:not(.family-mark){animation:intro-breath 2.2s ease-in-out infinite alternate}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
@@ -589,25 +600,45 @@ $('interact').onclick=collect;$('collect').onclick=collect;$('reset').onclick=()
 $('simToggle').onclick=()=>{$('sim').classList.toggle('open')};$('simClose').onclick=()=>$('sim').classList.remove('open');$('scenePick').onchange=e=>{st.scene=e.target.value;hud()};$('souls').oninput=e=>{st.souls=Number(e.target.value);hud()};$('scale').oninput=e=>{st.scale=Number(e.target.value);hud()};$('safeCheck').onchange=e=>{st.safe=e.target.checked;hud()};$('motionCheck').onchange=e=>{st.reduced=e.target.checked;hud()};$('hudCheck').onchange=e=>{st.showHUD=e.target.checked;hud()};$('lang').onclick=()=>{st.lang={en:'ja',ja:'zh',zh:'en'}[st.lang];drawMenu();if(st.screen!=='game'&&st.screen!=='menu')panel();hud()};
 const screens=['menu','game','journal','inventory','dialogue','pause','settings','chapters'];screens.forEach(s=>$('quick').append(btn(s,()=>open(s),'action')));
 const LOAD_DURATION=25000;
+const SPLASH_DURATION=4200;
 let loadingTimer=null,loadingActive=false;
+function finishIntro(destination){
+ const intro=$('intro');
+ loadingActive=false;
+ if(loadingTimer!==null){clearInterval(loadingTimer);loadingTimer=null}
+ intro.classList.add('done');
+ intro.classList.remove('intro-splash','intro-loading');
+ open(destination);
+}
+function startIntro(){
+ if(loadingTimer!==null)clearInterval(loadingTimer);
+ loadingActive=true;
+ const intro=$('intro');
+ intro.classList.remove('done','intro-loading');
+ intro.classList.add('intro-splash');
+ if(audioActivated)playMusic('loading');
+ loadingTimer=setTimeout(()=>finishIntro('menu'),SPLASH_DURATION);
+}
 function startLoading(destination){
  if(loadingTimer!==null)clearInterval(loadingTimer);
  loadingActive=true;
- const intro=$('intro');intro.classList.remove('done');
+ const intro=$('intro');
+ intro.classList.remove('done','intro-splash');
+ intro.classList.add('intro-loading');
  const began=performance.now();
- $('loadingFill').style.width='0%';$('loadingPercent').textContent='0%';
+ $('loadingFill').style.width='0%';
+ $('loadingPercent').textContent='0%';
  $('loadingLabel').textContent=destination==='game'?'ENTERING THE HIDDEN REALM':'LOADING THE VEIL';
+ $('intro').querySelector('.skip').textContent='THE SPIRITS ARE AWAKENING · 25 SECOND SIMULATED LOAD';
  if(audioActivated)playMusic('loading');
  function tick(){
-  const fraction=Math.min(1,(performance.now()-began)/LOAD_DURATION),pct=Math.floor(fraction*100);
+  const fraction=Math.min(1,(performance.now()-began)/LOAD_DURATION);
   $('loadingFill').style.width=(fraction*100).toFixed(2)+'%';
-  $('loadingPercent').textContent=pct+'%';
-  if(fraction>=1){
-   clearInterval(loadingTimer);loadingTimer=null;loadingActive=false;
-   intro.classList.add('done');open(destination);
-  }
+  $('loadingPercent').textContent=Math.floor(fraction*100)+'%';
+  if(fraction>=1)finishIntro(destination);
  }
- tick();loadingTimer=setInterval(tick,60);
+ tick();
+ loadingTimer=setInterval(tick,60);
 }
 $('intro').addEventListener('pointerdown',enableAudio);
 window.addEventListener('keydown',e=>{
@@ -694,6 +725,6 @@ refreshLayout();
 
 $('musicToggle').onclick=()=>{if(!activeSoundtrack){gameSettings.muted=false;gameSettings.menuMusic=true;enableAudio();playMusic('menu')}else{gameSettings.muted=true;stopMusic()}persistGameSettings();syncMusicButton()};
 window.addEventListener('pointerdown',enableAudio,{once:true});
-applyGameSettings();syncMusicButton();drawMenu();open('menu');startLoading('menu');
+applyGameSettings();syncMusicButton();drawMenu();open('menu');startIntro();
 })();
 </script></body></html>
