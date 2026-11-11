@@ -83,6 +83,26 @@ body.reduce-motion .main-menu button::before{animation:none!important}
 #app[data-screen="game"] .lantern-glow{display:none}
 #app[data-screen="game"][data-scene="washitsu"] .fog{opacity:.16}
 #app[data-screen="game"] .scene-art{animation:none}
+
+/* v0.5: title art is the hero element, not a tiny corner badge.
+   Official source image contains broad transparent top/bottom padding. */
+#menu .logo-img{
+  width:min(800px,68vw);
+  max-width:none;
+  max-height:none;
+  height:clamp(230px,38vh,370px);
+  object-fit:cover;
+  object-position:center center;
+  margin-left:-2.8vw;
+  margin-top:-3.5vh;
+  filter:drop-shadow(0 8px 30px #000b);
+}
+#menu .rule{margin:5px 0 13px}
+#menu .main-menu{bottom:7%}
+@media(max-width:800px){
+  #menu .logo-img{width:88vw;height:clamp(185px,29vh,275px);margin-left:-4vw;margin-top:-3vh}
+  #menu .main-menu{bottom:8%}
+}
 </style></head><body>
 <div id="app" data-screen="menu" data-scene="washitsu">
 <div class="scene" aria-hidden="true"><div class="moon"></div>
