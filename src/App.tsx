@@ -1,3 +1,4 @@
+import { Simulator, defaultSim, sceneObjectives, type SimState } from "./Simulator";
 import { useEffect, useMemo, useState } from "react";
 
 type Screen =
@@ -230,17 +231,17 @@ function MainMenu({ go }: { go: (s: Screen) => void }) {
   );
 }
 
-function HUD({ go, ether = false }: { go: (s: Screen) => void; ether?: boolean }) {
+function HUD({ go, ether = false, sim, updateSim }: { go: (s: Screen) => void; ether?: boolean; sim: SimState; updateSim:(v:SimState)=>void }) {
   const [notice, setNotice] = useState(true);
   return (
     <main className={`screen hud-screen ${ether ? "ether-screen" : ""}`}>
       <World ether={ether} />
       <CornerFrame />
-      <div className="hud-top">
+      <div className={"hud-top "+(!sim.visible?"sim-invisible":"")} style={{transform:"scale("+(sim.hudScale/100)+")",transformOrigin:"top left"}}>
         <div className="objective">
           <span>{ether ? "ETHER RESONANCE" : "CURRENT OBJECTIVE"}</span>
-          <h2>{ether ? "Follow the severed memory" : "Enter the abandoned offering hall"}</h2>
-          <p>{ether ? "A spiritual trace is moving beyond the torii." : "THE DROWNED BELL · 02"}</p>
+          <h2>{ether ? "Follow the severed memory" : sceneObjectives[sim.scene]}</h2>
+          <p>{ether ? "A spiritual trace is moving beyond the torii." : "DEMO INVESTIGATION · "+sim.souls+"/3 SPIRITS"}</p>
         </div>
         <div className={`spirit-meter ${ether ? "active" : ""}`}>
           <Sigil small />
@@ -269,11 +270,11 @@ function HUD({ go, ether = false }: { go: (s: Screen) => void; ether?: boolean }
           </button>
         </>
       ) : (
-        <button className="interaction" onClick={() => go("dialogue")}>
+        <button className={"interaction "+(!sim.visible?"sim-invisible":"")} onClick={() => updateSim({...sim,souls:Math.min(3,sim.souls+1)})}>
           <span className="interact-ring">E</span>
           <div>
             <small>INVESTIGATE</small>
-            <b>Prayer plaque stained with seawater</b>
+            <b>{sim.souls===3?"Spirit collection completed":sim.scene==="graveyard"?"Collect wandering spirit":"Investigate the shrine relic"}</b>
           </div>
         </button>
       )}
@@ -286,7 +287,7 @@ function HUD({ go, ether = false }: { go: (s: Screen) => void; ether?: boolean }
         </div>
       )}
 
-      <div className="hud-bottom">
+      <div className={"hud-bottom "+(!sim.visible?"sim-invisible":"")} style={{transform:"scale("+(sim.hudScale/100)+")",transformOrigin:"bottom left"}}>
         <div className="quick-nav">
           <button onClick={() => go(ether ? "hud" : "ether")}>
             <b>Q</b>
@@ -747,6 +748,8 @@ function FooterHints() {
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>("menu");
+  const [sim,setSim] = useState<SimState>(()=>{try {return {...defaultSim,...JSON.parse(localStorage.getItem("rot-simulator")||"{}")}} catch{return defaultSim}});
+  useEffect(()=>{localStorage.setItem("rot-simulator",JSON.stringify(sim))},[sim]);
   const go = (s: Screen) => setScreen(s);
 
   useEffect(() => {
@@ -768,18 +771,20 @@ export default function App() {
 
   const current = useMemo(() => {
     if (screen === "menu") return <MainMenu go={go} />;
-    if (screen === "hud") return <HUD go={go} />;
-    if (screen === "ether") return <HUD go={go} ether />;
+    if (screen === "hud") return <HUD go={go} sim={sim} updateSim={setSim} />;
+    if (screen === "ether") return <HUD go={go} ether sim={sim} updateSim={setSim} />;
     if (screen === "journal") return <Journal go={go} />;
     if (screen === "inventory") return <Inventory go={go} />;
     if (screen === "dialogue") return <Dialogue go={go} />;
     if (screen === "pause") return <Pause go={go} />;
     return <Overview go={go} />;
-  }, [screen]);
+  }, [screen,sim]);
 
   return (
-    <div className="app-shell" data-screen={screen}>
+    <div className={"app-shell "+(sim.reducedMotion?"sim-reduced":"")} data-screen={screen} data-scene={sim.scene}>
       {current}
+      {sim.safeZone && <div className="sim-safe-area" aria-hidden="true" />}
+      <Simulator value={sim} onChange={setSim} screen={screen} go={go} />
     </div>
   );
 }
