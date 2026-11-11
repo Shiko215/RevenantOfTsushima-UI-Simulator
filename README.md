@@ -81,19 +81,19 @@ The existing React/Vite edition remains available and unchanged as the Figma Mak
 
 ## v0.3 Official art and breathing light (HTML5)
 
-The standalone `simulator.html` now references the following **user-supplied** game assets (optimized WebP). Put these files in `assets/` in the repository root:
+The standalone `simulator.html` now references the following **user-supplied** game assets (optimized WebP). The user has uploaded these files directly into the repository root; `simulator.html` now resolves them there:
 
 | File | Source / placement |
 | --- | --- |
-| `assets/rot-logo.webp` | Official Revenant of Tsushima logo; splash and main menu |
-| `assets/tomoe.webp` | Tomoe crest; splash emblem and corner |
-| `assets/mewa.webp` | Tsushima Mewa key art; main-menu character |
-| `assets/seishi.webp` | Tojo Seishi key art; dialogue portrait |
-| `assets/rot-shrine.webp` | Supplied torii / shrine screenshot; menu scene |
-| `assets/rot-town.webp` | Supplied Japanese town screenshot; alternative scene |
+| `rot-logo.webp` | Official Revenant of Tsushima logo; splash and main menu |
+| `tomoe.webp` | Tomoe crest; splash emblem and corner |
+| `mewa.webp` | Tsushima Mewa key art; main-menu character |
+| `seishi.webp` | Tojo Seishi key art; dialogue portrait |
+| `rot-shrine.webp` | Supplied torii / shrine screenshot; menu scene |
+| `rot-town.webp` | Supplied Japanese town screenshot; alternative scene |
 
 The first screen is a **breathing-light opening**: crest and official logo gently pulse and glow, automatically transition to the title screen after ~4.2 seconds, and can be dismissed with click, Enter, Space or Escape. Lantern light and background illumination continue subtly pulsing on the main menu. Reduced-motion preference is respected.
 
-**Asset upload required:** Because the connected GitHub text-file workflow cannot upload these binary images, the matching optimized asset bundle is provided separately as `rot-ui-v03-assets.zip` in the ChatGPT conversation. Extract it and upload its six `assets/` files to the repository's `assets/` directory (GitHub web UI: Add file → Upload files). Until those six files exist in GitHub, the logo and character art will be missing from the hosted preview. No image files have been uploaded to GitHub by this update.
+****Assets uploaded and linked:** All six WebP files are present in the repository root. Commit `025557b` updates the HTML file to use the correct relative image paths.
 
 Once the binary assets are committed, the standalone file can be previewed via GitHub Pages. The existing React/Figma UI still uses its own art references; this change targets the **standalone HTML5 simulator**.
