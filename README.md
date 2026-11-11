@@ -76,4 +76,4 @@ A separate, single-file simulator is available at **[simulator.html](./simulator
 
 Press **F2** or select **SIMULATOR** to open the debug panel. Use **J** for journal, **I** for inventory, **Q** for Ether Sight, **D** for dialogue, and **Esc** to pause or go back. In the simulator panel you can change demo scenes, collected spirits, HUD scale, accessibility and safe area options.
 
-The existing React/Vite edition remains available and unchanged as the Figma Make project. GitHub Pages is not automatically enabled by adding the HTML file. The repository is currently private, so public Pages access depends on repository visibility and GitHub plan eligibility.
+The existing React/Vite edition remains available and unchanged as the Figma Make project. GitHub Pages is not automatically enabled by adding the HTML file. The repository is public as currently reported by GitHub. You can enable GitHub Pages in Settings → Pages and choose Deploy from a branch (main, /root) to host simulator.html.
